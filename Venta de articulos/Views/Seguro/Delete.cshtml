@@ -1,0 +1,72 @@
+﻿@model Venta_de_articulos.Models.tbSeguro
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@*<h2>Delete</h2>*@
+
+<h3>Realmente quiere eliminar este registro?</h3>
+<div>
+    <h4>Datos del seguro</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Estado")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codEstado)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Pago mensual")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pagoMensual)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Fecha de creación")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaCreación)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Deducible")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deducible)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Nombre")
+        </dt>
+
+        <dd>
+            @Model.tbPersona.primerNombre @Model.tbPersona.segundoNombre @Model.tbPersona.primerApellido @Model.tbPersona.segundoApellido
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Placa")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbVehiculo.placa)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+            @Html.ActionLink("Regresar", "Index")
+        </div>
+    }
+</div>

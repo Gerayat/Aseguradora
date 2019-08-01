@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Venta_de_articulos.Models.tbSeguro>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Seguros</h2>
+<div  style="border-color:lightgray;border-style:solid; border-width:1px; padding:9px; height:50px;">
+    <div>
+        @Html.ActionLink("Nuevo seguro", "Create", null, htmlAttributes: new { @class = "card-link" })
+        &emsp;&emsp;
+        @Html.ActionLink("Clientes", "Index", "Persona", null, htmlAttributes: new { @class = "card-link" })
+        &emsp;&emsp;
+        @Html.ActionLink("Vehiculos", "Index", "Vehiculo", null, htmlAttributes: new { @class = "card-link" })
+    </div>
+</div>
+<table class="table">
+    <tr>
+        @*<th>
+            @Html.DisplayName("Estado")
+        </th>*@
+        <th>
+            @Html.DisplayName("Pago mensual")
+        </th>
+        @*<th>
+            @Html.DisplayName("Fecha de creación")
+        </th>*@
+        <th>
+            @Html.DisplayName("Deducible")
+        </th>
+        <th>
+            @Html.DisplayName("Nombre")
+        </th>
+        <th>
+            @Html.DisplayName("Placa")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.codEstado)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.pagoMensual)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.fechaCreación)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.deducible)
+        </td>
+        <td>
+            @item.tbPersona.primerNombre @item.tbPersona.segundoNombre @item.tbPersona.primerApellido @item.tbPersona.segundoApellido
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbVehiculo.placa)
+        </td>
+        <td>
+            @Html.ActionLink("Modificar", "Edit", new { id=item.codSeguro }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.codSeguro }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.codSeguro })
+        </td>
+    </tr>
+}
+
+</table>

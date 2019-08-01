@@ -1,0 +1,51 @@
+﻿@model Venta_de_articulos.Models.tbResolucion
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@*<h2>Delete</h2>*@
+
+<h3>Esta seguro de eliminar esta resolución?</h3>
+<div>
+    @*<h4>tbResolucion</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Resolución")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resolucion)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Estado")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Descripción de reclamo")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbReclamo.descripción)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Borrar" class="btn btn-danger" />
+            &emsp;
+            <a href="@Url.Action("Index")" class="btn btn-primary">
+                Regresar
+            </a>
+        </div>
+    }
+</div>

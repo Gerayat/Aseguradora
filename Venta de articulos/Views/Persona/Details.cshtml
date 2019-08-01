@@ -1,0 +1,66 @@
+﻿@model Venta_de_articulos.Models.tbPersona
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Cliente</h2>
+
+<div>
+    <h4>Información de cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Primer nombre")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.primerNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Segundo nombre")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.segundoNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Primer apellido")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.primerApellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Segundo apellido")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.segundoApellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Telefono")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Fecha de nacimiento")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaNacimiento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.codPersona }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>

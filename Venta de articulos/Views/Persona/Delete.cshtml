@@ -1,0 +1,72 @@
+﻿@model Venta_de_articulos.Models.tbPersona
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Cliente</h2>
+
+<h3>Realmente desea eliminar este registro?</h3>
+<div>
+    <h4>Eliminar cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Primer nombre")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.primerNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Segundo nombre")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.segundoNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Primer apellido")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.primerApellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Segundo apellido")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.segundoApellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Telefono")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Telefono")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaNacimiento)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+            @Html.ActionLink("Regresar", "Index")
+        </div>
+    }
+</div>

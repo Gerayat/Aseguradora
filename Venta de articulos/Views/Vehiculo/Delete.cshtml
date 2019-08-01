@@ -1,0 +1,64 @@
+﻿@model Venta_de_articulos.Models.tbVehiculo
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Vehículo</h2>
+
+<h3>Esta seguro de eliminar este registro?</h3>
+<div>
+    <h4>Eliminar Vehículo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Placa")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.placa)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Marca")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.marca)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Linea")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.linea)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Modelo")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Color")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.color)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="eliminar" class="btn btn-danger" /> |
+            @Html.ActionLink("Regresar", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,51 @@
+﻿@model Venta_de_articulos.Models.tbReclamo
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@*<h2>Borrar reclamo</h2>*@
+
+<h3>Esta seguro de borrar este registro?</h3>
+<div>
+    @*<h4>Borrar reclamo</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Estado")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codEstado)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Descripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripción)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Codigo Seguro")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbSeguro.codSeguro)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Borrar" class="btn btn-danger" />
+            &emsp;
+            <a href="@Url.Action("Index")" class="btn btn-primary">
+                Regresar
+            </a>
+        </div>
+    }
+</div>

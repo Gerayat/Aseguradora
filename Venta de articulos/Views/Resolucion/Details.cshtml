@@ -1,0 +1,42 @@
+﻿@model Venta_de_articulos.Models.tbResolucion
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbResolucion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.resolucion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.resolucion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbReclamo.descripción)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbReclamo.descripción)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.codResolucion }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

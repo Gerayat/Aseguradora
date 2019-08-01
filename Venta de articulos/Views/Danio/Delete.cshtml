@@ -1,0 +1,59 @@
+﻿@model Venta_de_articulos.Models.tbDanio
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@*<h2>Delete</h2>*@
+
+<h3>Esta seguro de que quiere eliminar este registro?</h3>
+<div>
+    @*<h4>tbDanio</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Descripción del daño")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Costo de reparación")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.costoReparacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Estado")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Descripción del daño")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbReclamo.descripción)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Borrar" class="btn btn-danger" />
+            &emsp;
+            <a href="@Url.Action("Index")" class="btn btn-primary">
+                Regresar
+            </a>
+        </div>
+    }
+</div>

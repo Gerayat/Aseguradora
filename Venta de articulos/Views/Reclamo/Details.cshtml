@@ -1,0 +1,47 @@
+﻿@model Venta_de_articulos.Models.tbReclamo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalles del reclamo</h2>
+
+<div>
+    @*<h4>tbReclamo</h4>*@
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Estado")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codEstado)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Descripción")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripción)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Codigo del seguro")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbSeguro.codSeguro)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="@Url.Action("Edit", new { id = Model.codReclamo })" class="btn btn-primary">
+        Editar
+    </a>
+    &emsp;
+    <a href="@Url.Action("Index")" class="btn btn-info">
+        Regresar
+    </a>
+</p>

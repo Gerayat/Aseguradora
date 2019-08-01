@@ -1,0 +1,66 @@
+﻿@model Venta_de_articulos.Models.tbSeguro
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@*<h2>Details</h2>*@
+
+<div>
+    <h4>Datos de seguro</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Estado")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.codEstado)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Pago mensual")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pagoMensual)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Fecha de creación")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaCreación)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Deducible")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deducible)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Nombre")
+        </dt>
+
+        <dd>
+            @Model.tbPersona.primerNombre @Model.tbPersona.segundoNombre @Model.tbPersona.primerApellido @Model.tbPersona.segundoApellido
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Placa")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbVehiculo.placa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.codSeguro }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>
