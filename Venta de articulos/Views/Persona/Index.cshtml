@@ -4,64 +4,49 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Clientes</h2>
-<div class="row">
-    <div class="col-md-10">
-        @Html.ActionLink("Nuevo cliente", "Create")
-    </div>
-    <div class="col-md-2">
-        @Html.ActionLink("Regresar", "Index", "Seguro")
-    </div>
+<h2>Personas</h2>
+
+<p>
+    <a class="btn btn-primary" href="@Url.Action("Create")"><span class="glyphicon glyphicon-plus"></span> Agregar persona</a>
+    <a class="btn btn-success" href="@Url.Action("Index", "Seguro")"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+</p>
+
+<div class="panel panel-default">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Telefono
+                </th>
+                <th>
+                    Fecha de nacimiento
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.primerNombre @item.segundoNombre @item.primerApellido @item.segundoApellido
+                    </td>
+                    <td>
+                        @item.telefono
+                    </td>
+                    <td>
+                        @item.fechaNacimiento.Value.ToShortDateString()
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = item.codPersona })" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="@Url.Action("Delete", new { id = item.codPersona })" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Primer cliente")
-        </th>
-        <th>
-            @Html.DisplayName("Segundo nombre")
-        </th>
-        <th>
-            @Html.DisplayName("Primer apellido")
-        </th>
-        <th>
-            @Html.DisplayName("Segundo apellido")
-        </th>
-        <th>
-            @Html.DisplayName("Telefono")
-        </th>
-        <th>
-            @Html.DisplayName("Fecha de nacimiento")
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.primerNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.segundoNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.primerApellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.segundoApellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.telefono)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.fechaNacimiento)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.codPersona }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.codPersona }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.codPersona })
-        </td>
-    </tr>
-}
-
-</table>

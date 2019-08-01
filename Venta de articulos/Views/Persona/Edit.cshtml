@@ -4,21 +4,20 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Cliente</h2>
+<h2>Editar persona</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Editar cliente</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.codPersona)
 
         <div class="form-group">
-            @Html.Label("Primer nombre", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="primerNombre">Primer nombre</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.primerNombre, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.primerNombre, "", new { @class = "text-danger" })
@@ -26,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Segundo nombre", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="segundoNombre">Segundo nombre</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.segundoNombre, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.segundoNombre, "", new { @class = "text-danger" })
@@ -34,7 +33,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Primer apellido", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="primerApellido">Primer Apellido</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.primerApellido, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.primerApellido, "", new { @class = "text-danger" })
@@ -42,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.segundoApellido, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="segundoApellido">Segundo apellido</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.segundoApellido, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.segundoApellido, "", new { @class = "text-danger" })
@@ -50,7 +49,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Telefono", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="telefono">Teléfono</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
@@ -58,23 +57,22 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Fecha de nacimiento", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="fechaNacimiento">Fecha de nacimiento</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.fechaNacimiento, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fechaNacimiento, "", new { @class = "text-danger" })
+                <input type="date" name="fechaNacimiento" id="fechaNacimiento" class="form-control" value="@Model.fechaNacimiento.Value.ToShortDateString()" />
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-success" />
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-check"></span> Guardar</button>
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Regresar", "Index")
+    <a class="btn btn-danger" href="@Url.Action("Index")"><span class="glyphicon glyphicon-arrow-left"></span></a>
 </div>
 
 @section Scripts {

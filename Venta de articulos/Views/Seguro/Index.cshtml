@@ -5,64 +5,64 @@
 }
 
 <h2>Seguros</h2>
-<div  style="border-color:lightgray;border-style:solid; border-width:1px; padding:9px; height:50px;">
-    <div>
-        @Html.ActionLink("Nuevo seguro", "Create", null, htmlAttributes: new { @class = "card-link" })
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a class="btn btn-primary" href="@Url.Action("Create")"><span class="glyphicon glyphicon-plus"></span> Nuevo seguro</a>
         &emsp;&emsp;
-        @Html.ActionLink("Clientes", "Index", "Persona", null, htmlAttributes: new { @class = "card-link" })
+        <a class="btn btn-success" href="@Url.Action("Index", "Persona")"><span class="glyphicon glyphicon-user"></span> Personas</a>
         &emsp;&emsp;
-        @Html.ActionLink("Vehiculos", "Index", "Vehiculo", null, htmlAttributes: new { @class = "card-link" })
+        <a class="btn btn-success" href="@Url.Action("Index", "Vehiculo")"><span class="glyphicon glyphicon-bed"></span> Vehiculos</a>
     </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Mensualidad
+                </th>
+                <th>
+                    Deducible
+                </th>
+                <th>
+                    Placa
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.tbPersona.primerNombre @item.tbPersona.segundoNombre @item.tbPersona.primerApellido @item.tbPersona.segundoApellido
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.pagoMensual)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.deducible)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tbVehiculo.placa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.codEstado)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Modificar", "Edit", new { id = item.codSeguro }) |
+                        @Html.ActionLink("Detalles", "Details", new { id = item.codSeguro }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.codSeguro })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-<table class="table">
-    <tr>
-        @*<th>
-            @Html.DisplayName("Estado")
-        </th>*@
-        <th>
-            @Html.DisplayName("Pago mensual")
-        </th>
-        @*<th>
-            @Html.DisplayName("Fecha de creación")
-        </th>*@
-        <th>
-            @Html.DisplayName("Deducible")
-        </th>
-        <th>
-            @Html.DisplayName("Nombre")
-        </th>
-        <th>
-            @Html.DisplayName("Placa")
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.codEstado)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.pagoMensual)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.fechaCreación)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.deducible)
-        </td>
-        <td>
-            @item.tbPersona.primerNombre @item.tbPersona.segundoNombre @item.tbPersona.primerApellido @item.tbPersona.segundoApellido
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tbVehiculo.placa)
-        </td>
-        <td>
-            @Html.ActionLink("Modificar", "Edit", new { id=item.codSeguro }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.codSeguro }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.codSeguro })
-        </td>
-    </tr>
-}
-
-</table>

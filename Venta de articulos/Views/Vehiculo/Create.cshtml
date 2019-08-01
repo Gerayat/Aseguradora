@@ -4,19 +4,18 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Vehiculo</h2>
+<h2>Agregar Vehículo</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Registrar vehiculo</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.Label("Placa", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="placa">Placa</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.placa, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.placa, "", new { @class = "text-danger" })
@@ -24,7 +23,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Marca", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="marca">Marca</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.marca, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.marca, "", new { @class = "text-danger" })
@@ -32,7 +31,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Linea", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="linea">Linea</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.linea, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.linea, "", new { @class = "text-danger" })
@@ -40,7 +39,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Modelo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="modelo">Modelo</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.modelo, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.modelo, "", new { @class = "text-danger" })
@@ -48,7 +47,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Color", htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2" for="color">Color</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.color, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.color, "", new { @class = "text-danger" })
@@ -57,14 +56,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Crear" class="btn btn-success" />
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-check"></span> Agregar</button>
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Regresar", "Index")
+    <a class="btn btn-danger" href="@Url.Action("Index")"><span class="glyphicon glyphicon-arrow-left"></span></a>
 </div>
 
 @section Scripts {

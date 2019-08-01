@@ -58,10 +58,11 @@ namespace Venta_de_articulos.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codSeguro,codPersona,codVehiculo,codEstado,pagoMensual,fechaCreación,deducible")] tbSeguro tbSeguro)
+        public ActionResult Create([Bind(Include = "codSeguro,codPersona,codVehiculo,codEstado,pagoMensual,deducible")] tbSeguro tbSeguro)
         {
             if (ModelState.IsValid)
             {
+                tbSeguro.fechaCreación = DateTime.Now;
                 db.tbSeguro.Add(tbSeguro);
                 db.SaveChanges();
                 return RedirectToAction("Index");
