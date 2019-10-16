@@ -17,8 +17,7 @@ namespace Venta_de_articulos.Controllers
         // GET: Danio
         public ActionResult Index()
         {
-            var tbDanio = db.tbDanio.Include(t => t.tbReclamo);
-            return View(tbDanio.ToList());
+            return View(db.tbDanio.ToList());
         }
 
         // GET: Danio/Details/5
@@ -39,7 +38,6 @@ namespace Venta_de_articulos.Controllers
         // GET: Danio/Create
         public ActionResult Create()
         {
-            ViewBag.codReclamo = new SelectList(db.tbReclamo, "codReclamo", "descripción");
             return View();
         }
 
@@ -48,7 +46,7 @@ namespace Venta_de_articulos.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codDanio,codReclamo,descripcion,costoReparacion,estado")] tbDanio tbDanio)
+        public ActionResult Create([Bind(Include = "codDanio,descripcion,estado")] tbDanio tbDanio)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +55,6 @@ namespace Venta_de_articulos.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.codReclamo = new SelectList(db.tbReclamo, "codReclamo", "descripción", tbDanio.codReclamo);
             return View(tbDanio);
         }
 
@@ -73,7 +70,6 @@ namespace Venta_de_articulos.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.codReclamo = new SelectList(db.tbReclamo, "codReclamo", "descripción", tbDanio.codReclamo);
             return View(tbDanio);
         }
 
@@ -82,7 +78,7 @@ namespace Venta_de_articulos.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "codDanio,codReclamo,descripcion,costoReparacion,estado")] tbDanio tbDanio)
+        public ActionResult Edit([Bind(Include = "codDanio,descripcion,estado")] tbDanio tbDanio)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +86,6 @@ namespace Venta_de_articulos.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.codReclamo = new SelectList(db.tbReclamo, "codReclamo", "descripción", tbDanio.codReclamo);
             return View(tbDanio);
         }
 

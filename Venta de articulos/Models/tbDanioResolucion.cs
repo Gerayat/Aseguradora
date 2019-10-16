@@ -12,19 +12,21 @@ namespace Venta_de_articulos.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class tbDanio
+    public partial class tbDanioResolucion
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbDanio()
+        public tbDanioResolucion()
         {
-            this.tbDanioResolucion = new HashSet<tbDanioResolucion>();
+            this.tbReclamo = new HashSet<tbReclamo>();
         }
     
         public int codDanio { get; set; }
-        public string descripcion { get; set; }
-        public Nullable<int> estado { get; set; }
+        public int codResolucion { get; set; }
+        public int codDanioResolucion { get; set; }
     
+        public virtual tbDanio tbDanio { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbDanioResolucion> tbDanioResolucion { get; set; }
+        public virtual ICollection<tbReclamo> tbReclamo { get; set; }
+        public virtual tbResolucion tbResolucion { get; set; }
     }
 }

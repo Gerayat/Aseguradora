@@ -4,14 +4,14 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Detalles del daño</h2>
+<h2>Details</h2>
 
 <div>
-    <h4>@*tbDanio*@</h4>
+    <h4>tbDanio</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayName("Descripción del daño")
+            @Html.DisplayNameFor(model => model.descripcion)
         </dt>
 
         <dd>
@@ -19,37 +19,16 @@
         </dd>
 
         <dt>
-            @Html.DisplayName("Costo de reparación")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.costoReparacion)
-        </dd>
-
-        <dt>
-            @Html.DisplayName("Estado")
+            @Html.DisplayNameFor(model => model.estado)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.estado)
         </dd>
 
-        <dt>
-            @Html.DisplayName("Descripción del reclamo")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tbReclamo.descripción)
-        </dd>
-
     </dl>
 </div>
 <p>
-    <a href="@Url.Action("Edit", new { id = Model.codDanio  })" class="btn btn-primary">
-        Editar
-    </a>
-    &emsp;
-    <a href="@Url.Action("Index")" class="btn btn-info">
-        Regresar
-    </a>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.codDanio }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>

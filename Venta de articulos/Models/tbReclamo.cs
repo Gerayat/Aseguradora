@@ -14,22 +14,12 @@ namespace Venta_de_articulos.Models
     
     public partial class tbReclamo
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tbReclamo()
-        {
-            this.tbDanio = new HashSet<tbDanio>();
-            this.tbResolucion = new HashSet<tbResolucion>();
-        }
-    
         public int codReclamo { get; set; }
         public Nullable<int> codSeguro { get; set; }
         public Nullable<int> codEstado { get; set; }
-        public string descripción { get; set; }
+        public Nullable<int> codDanioResolucion { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbDanio> tbDanio { get; set; }
+        public virtual tbDanioResolucion tbDanioResolucion { get; set; }
         public virtual tbSeguro tbSeguro { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbResolucion> tbResolucion { get; set; }
     }
 }

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Venta_de_articulos.Models.tbReclamo>
+
+@{
+    ViewBag.Title = "Reclamos";
+}
+<h2>Reclamos</h2>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a class="btn btn-primary" href="@Url.Action("Create")"><span class="glyphicon glyphicon-plus"></span> Nuevo Reclamo</a>
+        &emsp;&emsp;
+        <a class="btn btn-success" href="@Url.Action("Index", "DanioResolucions")"><span class="glyphicon glyphicon-user"></span> Daños</a>
+        @*&emsp;&emsp;
+        <a class="btn btn-success" href="@Url.Action("Index", "Resolucion")"><span class="glyphicon glyphicon-bed"></span> Resoluciónes</a>*@
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                # seguro
+            </th>
+            <th>
+                Propietario
+            </th>
+            <th>
+                Vehiculo
+            </th>
+            <th>
+                Daño
+            </th>
+            <th>
+                Resolucion
+            </th>
+            <th>
+                costo Rep.
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbSeguro.codSeguro)
+                </td>
+                <td>
+                    @item.tbSeguro.tbPersona.primerNombre @item.tbSeguro.tbPersona.primerApellido
+                </td>
+                <td>
+                    @item.tbSeguro.tbVehiculo.placa @item.tbSeguro.tbVehiculo.modelo  @item.tbSeguro.tbVehiculo.color
+                </td>
+                <td>
+                    @item.tbDanioResolucion.tbDanio.descripcion
+                </td>
+                <td>
+                    @item.tbDanioResolucion.tbResolucion.resolucion
+                </td>
+                <td>
+                    @item.tbDanioResolucion.tbResolucion.costoReparacion
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>

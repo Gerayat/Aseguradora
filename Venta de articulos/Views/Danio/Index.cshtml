@@ -1,31 +1,21 @@
 ﻿@model IEnumerable<Venta_de_articulos.Models.tbDanio>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Daños";
 }
 
-<h2>Registros de daños</h2>
-<div class="row">
-    <div class="col-md-10">
-        @Html.ActionLink("Nuevo daño", "Create")
-    </div>
-    <div class="col-md-2">
-        @Html.ActionLink("Regresar", "Index", "Reclamo")
-    </div>
-</div>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Crear nuevo", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayName("Descripción")
+            @Html.DisplayNameFor(model => model.descripcion)
         </th>
         <th>
-            @Html.DisplayName("Costo de reparación")
-        </th>
-        <th>
-            @Html.DisplayName("Estado")
-        </th>
-        <th>
-            @Html.DisplayName("Descripción")
+            @Html.DisplayNameFor(model => model.estado)
         </th>
         <th></th>
     </tr>
@@ -36,18 +26,12 @@
             @Html.DisplayFor(modelItem => item.descripcion)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.costoReparacion)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.estado)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tbReclamo.descripción)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.codDanio }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.codDanio }) |
-            @Html.ActionLink("Borrar", "Delete", new { id=item.codDanio })
+            @Html.ActionLink("Edit", "Edit", new { id=item.codDanio }) |
+            @Html.ActionLink("Details", "Details", new { id=item.codDanio }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.codDanio })
         </td>
     </tr>
 }

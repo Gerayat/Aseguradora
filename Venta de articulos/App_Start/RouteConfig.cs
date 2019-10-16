@@ -16,7 +16,7 @@ namespace Venta_de_articulos
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Reclamo", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Reclamos", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

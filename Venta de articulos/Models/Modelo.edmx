@@ -10,10 +10,16 @@
             <PropertyRef Name="codDanio" />
           </Key>
           <Property Name="codDanio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="codReclamo" Type="int" />
           <Property Name="descripcion" Type="varchar" MaxLength="400" />
-          <Property Name="costoReparacion" Type="decimal" Precision="8" Scale="2" />
           <Property Name="estado" Type="int" />
+        </EntityType>
+        <EntityType Name="tbDanioResolucion">
+          <Key>
+            <PropertyRef Name="codDanioResolucion" />
+          </Key>
+          <Property Name="codDanio" Type="int" Nullable="false" />
+          <Property Name="codResolucion" Type="int" Nullable="false" />
+          <Property Name="codDanioResolucion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="tbPersona">
           <Key>
@@ -34,15 +40,15 @@
           <Property Name="codReclamo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="codSeguro" Type="int" />
           <Property Name="codEstado" Type="int" />
-          <Property Name="descripción" Type="varchar" MaxLength="400" />
+          <Property Name="codDanioResolucion" Type="int" />
         </EntityType>
         <EntityType Name="tbResolucion">
           <Key>
             <PropertyRef Name="codResolucion" />
           </Key>
           <Property Name="codResolucion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="codReclamo" Type="int" />
           <Property Name="resolucion" Type="varchar" MaxLength="400" />
+          <Property Name="costoReparacion" Type="decimal" Precision="8" Scale="2" />
           <Property Name="estado" Type="int" />
         </EntityType>
         <EntityType Name="tbSeguro">
@@ -68,15 +74,39 @@
           <Property Name="modelo" Type="int" />
           <Property Name="color" Type="varchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_tbDanio_tbReclamo">
-          <End Role="tbReclamo" Type="Self.tbReclamo" Multiplicity="0..1" />
-          <End Role="tbDanio" Type="Self.tbDanio" Multiplicity="*" />
+        <Association Name="FK_tbDanioResolucion_tbDanio">
+          <End Role="tbDanio" Type="Self.tbDanio" Multiplicity="1" />
+          <End Role="tbDanioResolucion" Type="Self.tbDanioResolucion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbReclamo">
-              <PropertyRef Name="codReclamo" />
+            <Principal Role="tbDanio">
+              <PropertyRef Name="codDanio" />
             </Principal>
-            <Dependent Role="tbDanio">
-              <PropertyRef Name="codReclamo" />
+            <Dependent Role="tbDanioResolucion">
+              <PropertyRef Name="codDanio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbDanioResolucion_tbResolucion">
+          <End Role="tbResolucion" Type="Self.tbResolucion" Multiplicity="1" />
+          <End Role="tbDanioResolucion" Type="Self.tbDanioResolucion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbResolucion">
+              <PropertyRef Name="codResolucion" />
+            </Principal>
+            <Dependent Role="tbDanioResolucion">
+              <PropertyRef Name="codResolucion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbReclamo_tbDanioResolucion">
+          <End Role="tbDanioResolucion" Type="Self.tbDanioResolucion" Multiplicity="0..1" />
+          <End Role="tbReclamo" Type="Self.tbReclamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbDanioResolucion">
+              <PropertyRef Name="codDanioResolucion" />
+            </Principal>
+            <Dependent Role="tbReclamo">
+              <PropertyRef Name="codDanioResolucion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -89,18 +119,6 @@
             </Principal>
             <Dependent Role="tbReclamo">
               <PropertyRef Name="codSeguro" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbResolucion_tbReclamo">
-          <End Role="tbReclamo" Type="Self.tbReclamo" Multiplicity="0..1" />
-          <End Role="tbResolucion" Type="Self.tbResolucion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbReclamo">
-              <PropertyRef Name="codReclamo" />
-            </Principal>
-            <Dependent Role="tbResolucion">
-              <PropertyRef Name="codReclamo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -130,22 +148,27 @@
         </Association>
         <EntityContainer Name="dbAseguradoraModelStoreContainer">
           <EntitySet Name="tbDanio" EntityType="Self.tbDanio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbDanioResolucion" EntityType="Self.tbDanioResolucion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbPersona" EntityType="Self.tbPersona" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbReclamo" EntityType="Self.tbReclamo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbResolucion" EntityType="Self.tbResolucion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbSeguro" EntityType="Self.tbSeguro" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbVehiculo" EntityType="Self.tbVehiculo" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_tbDanio_tbReclamo" Association="Self.FK_tbDanio_tbReclamo">
-            <End Role="tbReclamo" EntitySet="tbReclamo" />
+          <AssociationSet Name="FK_tbDanioResolucion_tbDanio" Association="Self.FK_tbDanioResolucion_tbDanio">
             <End Role="tbDanio" EntitySet="tbDanio" />
+            <End Role="tbDanioResolucion" EntitySet="tbDanioResolucion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbDanioResolucion_tbResolucion" Association="Self.FK_tbDanioResolucion_tbResolucion">
+            <End Role="tbResolucion" EntitySet="tbResolucion" />
+            <End Role="tbDanioResolucion" EntitySet="tbDanioResolucion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbReclamo_tbDanioResolucion" Association="Self.FK_tbReclamo_tbDanioResolucion">
+            <End Role="tbDanioResolucion" EntitySet="tbDanioResolucion" />
+            <End Role="tbReclamo" EntitySet="tbReclamo" />
           </AssociationSet>
           <AssociationSet Name="FK_tbReclamo_tbSeguro" Association="Self.FK_tbReclamo_tbSeguro">
             <End Role="tbSeguro" EntitySet="tbSeguro" />
             <End Role="tbReclamo" EntitySet="tbReclamo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbResolucion_tbReclamo" Association="Self.FK_tbResolucion_tbReclamo">
-            <End Role="tbReclamo" EntitySet="tbReclamo" />
-            <End Role="tbResolucion" EntitySet="tbResolucion" />
           </AssociationSet>
           <AssociationSet Name="FK_tbSeguro_tbPersona" Association="Self.FK_tbSeguro_tbPersona">
             <End Role="tbPersona" EntitySet="tbPersona" />
@@ -160,16 +183,58 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbAseguradoraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="dbAseguradoraEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbDanio" EntityType="dbAseguradoraModel.tbDanio" />
+          <EntitySet Name="tbDanioResolucion" EntityType="dbAseguradoraModel.tbDanioResolucion" />
+          <EntitySet Name="tbPersona" EntityType="dbAseguradoraModel.tbPersona" />
+          <EntitySet Name="tbReclamo" EntityType="dbAseguradoraModel.tbReclamo" />
+          <EntitySet Name="tbSeguro" EntityType="dbAseguradoraModel.tbSeguro" />
+          <EntitySet Name="tbVehiculo" EntityType="dbAseguradoraModel.tbVehiculo" />
+          <AssociationSet Name="FK_tbDanioResolucion_tbDanio" Association="dbAseguradoraModel.FK_tbDanioResolucion_tbDanio">
+            <End Role="tbDanio" EntitySet="tbDanio" />
+            <End Role="tbDanioResolucion" EntitySet="tbDanioResolucion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbReclamo_tbDanioResolucion" Association="dbAseguradoraModel.FK_tbReclamo_tbDanioResolucion">
+            <End Role="tbDanioResolucion" EntitySet="tbDanioResolucion" />
+            <End Role="tbReclamo" EntitySet="tbReclamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbSeguro_tbPersona" Association="dbAseguradoraModel.FK_tbSeguro_tbPersona">
+            <End Role="tbPersona" EntitySet="tbPersona" />
+            <End Role="tbSeguro" EntitySet="tbSeguro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbReclamo_tbSeguro" Association="dbAseguradoraModel.FK_tbReclamo_tbSeguro">
+            <End Role="tbSeguro" EntitySet="tbSeguro" />
+            <End Role="tbReclamo" EntitySet="tbReclamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbSeguro_tbVehiculo" Association="dbAseguradoraModel.FK_tbSeguro_tbVehiculo">
+            <End Role="tbVehiculo" EntitySet="tbVehiculo" />
+            <End Role="tbSeguro" EntitySet="tbSeguro" />
+          </AssociationSet>
+          <EntitySet Name="tbResolucion" EntityType="dbAseguradoraModel.tbResolucion" />
+          <AssociationSet Name="FK_tbDanioResolucion_tbResolucion" Association="dbAseguradoraModel.FK_tbDanioResolucion_tbResolucion">
+            <End Role="tbResolucion" EntitySet="tbResolucion" />
+            <End Role="tbDanioResolucion" EntitySet="tbDanioResolucion" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="tbDanio">
           <Key>
             <PropertyRef Name="codDanio" />
           </Key>
           <Property Name="codDanio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codReclamo" Type="Int32" />
           <Property Name="descripcion" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
-          <Property Name="costoReparacion" Type="Decimal" Precision="8" Scale="2" />
           <Property Name="estado" Type="Int32" />
-          <NavigationProperty Name="tbReclamo" Relationship="Self.FK_tbDanio_tbReclamo" FromRole="tbDanio" ToRole="tbReclamo" />
+          <NavigationProperty Name="tbDanioResolucion" Relationship="dbAseguradoraModel.FK_tbDanioResolucion_tbDanio" FromRole="tbDanio" ToRole="tbDanioResolucion" />
+        </EntityType>
+        <EntityType Name="tbDanioResolucion">
+          <Key>
+            <PropertyRef Name="codDanioResolucion" />
+          </Key>
+          <Property Name="codDanio" Type="Int32" Nullable="false" />
+          <Property Name="codResolucion" Type="Int32" Nullable="false" />
+          <Property Name="codDanioResolucion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbDanio" Relationship="dbAseguradoraModel.FK_tbDanioResolucion_tbDanio" FromRole="tbDanioResolucion" ToRole="tbDanio" />
+          <NavigationProperty Name="tbReclamo" Relationship="dbAseguradoraModel.FK_tbReclamo_tbDanioResolucion" FromRole="tbDanioResolucion" ToRole="tbReclamo" />
+          <NavigationProperty Name="tbResolucion" Relationship="dbAseguradoraModel.FK_tbDanioResolucion_tbResolucion" FromRole="tbDanioResolucion" ToRole="tbResolucion" />
         </EntityType>
         <EntityType Name="tbPersona">
           <Key>
@@ -182,7 +247,7 @@
           <Property Name="segundoApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="telefono" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="fechaNacimiento" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbSeguro" Relationship="Self.FK_tbSeguro_tbPersona" FromRole="tbPersona" ToRole="tbSeguro" />
+          <NavigationProperty Name="tbSeguro" Relationship="dbAseguradoraModel.FK_tbSeguro_tbPersona" FromRole="tbPersona" ToRole="tbSeguro" />
         </EntityType>
         <EntityType Name="tbReclamo">
           <Key>
@@ -191,20 +256,9 @@
           <Property Name="codReclamo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="codSeguro" Type="Int32" />
           <Property Name="codEstado" Type="Int32" />
-          <Property Name="descripción" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tbDanio" Relationship="Self.FK_tbDanio_tbReclamo" FromRole="tbReclamo" ToRole="tbDanio" />
-          <NavigationProperty Name="tbSeguro" Relationship="Self.FK_tbReclamo_tbSeguro" FromRole="tbReclamo" ToRole="tbSeguro" />
-          <NavigationProperty Name="tbResolucion" Relationship="Self.FK_tbResolucion_tbReclamo" FromRole="tbReclamo" ToRole="tbResolucion" />
-        </EntityType>
-        <EntityType Name="tbResolucion">
-          <Key>
-            <PropertyRef Name="codResolucion" />
-          </Key>
-          <Property Name="codResolucion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="codReclamo" Type="Int32" />
-          <Property Name="resolucion" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
-          <Property Name="estado" Type="Int32" />
-          <NavigationProperty Name="tbReclamo" Relationship="Self.FK_tbResolucion_tbReclamo" FromRole="tbResolucion" ToRole="tbReclamo" />
+          <Property Name="codDanioResolucion" Type="Int32" />
+          <NavigationProperty Name="tbDanioResolucion" Relationship="dbAseguradoraModel.FK_tbReclamo_tbDanioResolucion" FromRole="tbReclamo" ToRole="tbDanioResolucion" />
+          <NavigationProperty Name="tbSeguro" Relationship="dbAseguradoraModel.FK_tbReclamo_tbSeguro" FromRole="tbReclamo" ToRole="tbSeguro" />
         </EntityType>
         <EntityType Name="tbSeguro">
           <Key>
@@ -217,9 +271,9 @@
           <Property Name="pagoMensual" Type="Decimal" Precision="8" Scale="2" />
           <Property Name="fechaCreación" Type="DateTime" Precision="3" />
           <Property Name="deducible" Type="Decimal" Precision="8" Scale="2" />
-          <NavigationProperty Name="tbPersona" Relationship="Self.FK_tbSeguro_tbPersona" FromRole="tbSeguro" ToRole="tbPersona" />
-          <NavigationProperty Name="tbReclamo" Relationship="Self.FK_tbReclamo_tbSeguro" FromRole="tbSeguro" ToRole="tbReclamo" />
-          <NavigationProperty Name="tbVehiculo" Relationship="Self.FK_tbSeguro_tbVehiculo" FromRole="tbSeguro" ToRole="tbVehiculo" />
+          <NavigationProperty Name="tbPersona" Relationship="dbAseguradoraModel.FK_tbSeguro_tbPersona" FromRole="tbSeguro" ToRole="tbPersona" />
+          <NavigationProperty Name="tbReclamo" Relationship="dbAseguradoraModel.FK_tbReclamo_tbSeguro" FromRole="tbSeguro" ToRole="tbReclamo" />
+          <NavigationProperty Name="tbVehiculo" Relationship="dbAseguradoraModel.FK_tbSeguro_tbVehiculo" FromRole="tbSeguro" ToRole="tbVehiculo" />
         </EntityType>
         <EntityType Name="tbVehiculo">
           <Key>
@@ -231,23 +285,35 @@
           <Property Name="linea" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="modelo" Type="Int32" />
           <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tbSeguro" Relationship="Self.FK_tbSeguro_tbVehiculo" FromRole="tbVehiculo" ToRole="tbSeguro" />
+          <NavigationProperty Name="tbSeguro" Relationship="dbAseguradoraModel.FK_tbSeguro_tbVehiculo" FromRole="tbVehiculo" ToRole="tbSeguro" />
         </EntityType>
-        <Association Name="FK_tbDanio_tbReclamo">
-          <End Role="tbReclamo" Type="Self.tbReclamo" Multiplicity="0..1" />
-          <End Role="tbDanio" Type="Self.tbDanio" Multiplicity="*" />
+        <Association Name="FK_tbDanioResolucion_tbDanio">
+          <End Type="dbAseguradoraModel.tbDanio" Role="tbDanio" Multiplicity="1" />
+          <End Type="dbAseguradoraModel.tbDanioResolucion" Role="tbDanioResolucion" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbReclamo">
-              <PropertyRef Name="codReclamo" />
+            <Principal Role="tbDanio">
+              <PropertyRef Name="codDanio" />
             </Principal>
-            <Dependent Role="tbDanio">
-              <PropertyRef Name="codReclamo" />
+            <Dependent Role="tbDanioResolucion">
+              <PropertyRef Name="codDanio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbReclamo_tbDanioResolucion">
+          <End Type="dbAseguradoraModel.tbDanioResolucion" Role="tbDanioResolucion" Multiplicity="0..1" />
+          <End Type="dbAseguradoraModel.tbReclamo" Role="tbReclamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbDanioResolucion">
+              <PropertyRef Name="codDanioResolucion" />
+            </Principal>
+            <Dependent Role="tbReclamo">
+              <PropertyRef Name="codDanioResolucion" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbSeguro_tbPersona">
-          <End Role="tbPersona" Type="Self.tbPersona" Multiplicity="0..1" />
-          <End Role="tbSeguro" Type="Self.tbSeguro" Multiplicity="*" />
+          <End Type="dbAseguradoraModel.tbPersona" Role="tbPersona" Multiplicity="0..1" />
+          <End Type="dbAseguradoraModel.tbSeguro" Role="tbSeguro" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbPersona">
               <PropertyRef Name="codPersona" />
@@ -258,8 +324,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbReclamo_tbSeguro">
-          <End Role="tbSeguro" Type="Self.tbSeguro" Multiplicity="0..1" />
-          <End Role="tbReclamo" Type="Self.tbReclamo" Multiplicity="*" />
+          <End Type="dbAseguradoraModel.tbSeguro" Role="tbSeguro" Multiplicity="0..1" />
+          <End Type="dbAseguradoraModel.tbReclamo" Role="tbReclamo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbSeguro">
               <PropertyRef Name="codSeguro" />
@@ -269,21 +335,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbResolucion_tbReclamo">
-          <End Role="tbReclamo" Type="Self.tbReclamo" Multiplicity="0..1" />
-          <End Role="tbResolucion" Type="Self.tbResolucion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbReclamo">
-              <PropertyRef Name="codReclamo" />
-            </Principal>
-            <Dependent Role="tbResolucion">
-              <PropertyRef Name="codReclamo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbSeguro_tbVehiculo">
-          <End Role="tbVehiculo" Type="Self.tbVehiculo" Multiplicity="0..1" />
-          <End Role="tbSeguro" Type="Self.tbSeguro" Multiplicity="*" />
+          <End Type="dbAseguradoraModel.tbVehiculo" Role="tbVehiculo" Multiplicity="0..1" />
+          <End Type="dbAseguradoraModel.tbSeguro" Role="tbSeguro" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbVehiculo">
               <PropertyRef Name="codVehiculo" />
@@ -293,110 +347,111 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="dbAseguradoraEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tbDanio" EntityType="Self.tbDanio" />
-          <EntitySet Name="tbPersona" EntityType="Self.tbPersona" />
-          <EntitySet Name="tbReclamo" EntityType="Self.tbReclamo" />
-          <EntitySet Name="tbResolucion" EntityType="Self.tbResolucion" />
-          <EntitySet Name="tbSeguro" EntityType="Self.tbSeguro" />
-          <EntitySet Name="tbVehiculo" EntityType="Self.tbVehiculo" />
-          <AssociationSet Name="FK_tbDanio_tbReclamo" Association="Self.FK_tbDanio_tbReclamo">
-            <End Role="tbReclamo" EntitySet="tbReclamo" />
-            <End Role="tbDanio" EntitySet="tbDanio" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbSeguro_tbPersona" Association="Self.FK_tbSeguro_tbPersona">
-            <End Role="tbPersona" EntitySet="tbPersona" />
-            <End Role="tbSeguro" EntitySet="tbSeguro" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbReclamo_tbSeguro" Association="Self.FK_tbReclamo_tbSeguro">
-            <End Role="tbSeguro" EntitySet="tbSeguro" />
-            <End Role="tbReclamo" EntitySet="tbReclamo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbResolucion_tbReclamo" Association="Self.FK_tbResolucion_tbReclamo">
-            <End Role="tbReclamo" EntitySet="tbReclamo" />
-            <End Role="tbResolucion" EntitySet="tbResolucion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbSeguro_tbVehiculo" Association="Self.FK_tbSeguro_tbVehiculo">
-            <End Role="tbVehiculo" EntitySet="tbVehiculo" />
-            <End Role="tbSeguro" EntitySet="tbSeguro" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        <EntityType Name="tbResolucion">
+          <Key>
+            <PropertyRef Name="codResolucion" />
+          </Key>
+          <Property Name="codResolucion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="resolucion" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="costoReparacion" Type="Decimal" Precision="8" Scale="2" />
+          <Property Name="estado" Type="Int32" />
+          <NavigationProperty Name="tbDanioResolucion" Relationship="dbAseguradoraModel.FK_tbDanioResolucion_tbResolucion" FromRole="tbResolucion" ToRole="tbDanioResolucion" />
+        </EntityType>
+        <Association Name="FK_tbDanioResolucion_tbResolucion">
+          <End Type="dbAseguradoraModel.tbResolucion" Role="tbResolucion" Multiplicity="1" />
+          <End Type="dbAseguradoraModel.tbDanioResolucion" Role="tbDanioResolucion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbResolucion">
+              <PropertyRef Name="codResolucion" />
+            </Principal>
+            <Dependent Role="tbDanioResolucion">
+              <PropertyRef Name="codResolucion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
     <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="dbAseguradoraModelStoreContainer" CdmEntityContainer="dbAseguradoraEntities">
-    <EntitySetMapping Name="tbDanio">
-      <EntityTypeMapping TypeName="IsTypeOf(dbAseguradoraModel.tbDanio)">
-        <MappingFragment StoreEntitySet="tbDanio">
-          <ScalarProperty Name="codDanio" ColumnName="codDanio" />
-          <ScalarProperty Name="codReclamo" ColumnName="codReclamo" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="costoReparacion" ColumnName="costoReparacion" />
-          <ScalarProperty Name="estado" ColumnName="estado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbPersona">
-      <EntityTypeMapping TypeName="IsTypeOf(dbAseguradoraModel.tbPersona)">
-        <MappingFragment StoreEntitySet="tbPersona">
-          <ScalarProperty Name="codPersona" ColumnName="codPersona" />
-          <ScalarProperty Name="primerNombre" ColumnName="primerNombre" />
-          <ScalarProperty Name="segundoNombre" ColumnName="segundoNombre" />
-          <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
-          <ScalarProperty Name="segundoApellido" ColumnName="segundoApellido" />
-          <ScalarProperty Name="telefono" ColumnName="telefono" />
-          <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbReclamo">
-      <EntityTypeMapping TypeName="IsTypeOf(dbAseguradoraModel.tbReclamo)">
-        <MappingFragment StoreEntitySet="tbReclamo">
-          <ScalarProperty Name="codReclamo" ColumnName="codReclamo" />
-          <ScalarProperty Name="codSeguro" ColumnName="codSeguro" />
-          <ScalarProperty Name="codEstado" ColumnName="codEstado" />
-          <ScalarProperty Name="descripción" ColumnName="descripción" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbResolucion">
-      <EntityTypeMapping TypeName="IsTypeOf(dbAseguradoraModel.tbResolucion)">
-        <MappingFragment StoreEntitySet="tbResolucion">
-          <ScalarProperty Name="codResolucion" ColumnName="codResolucion" />
-          <ScalarProperty Name="codReclamo" ColumnName="codReclamo" />
-          <ScalarProperty Name="resolucion" ColumnName="resolucion" />
-          <ScalarProperty Name="estado" ColumnName="estado" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbSeguro">
-      <EntityTypeMapping TypeName="IsTypeOf(dbAseguradoraModel.tbSeguro)">
-        <MappingFragment StoreEntitySet="tbSeguro">
+          <EntitySetMapping Name="tbDanio">
+            <EntityTypeMapping TypeName="dbAseguradoraModel.tbDanio">
+              <MappingFragment StoreEntitySet="tbDanio">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="codDanio" ColumnName="codDanio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbDanioResolucion">
+            <EntityTypeMapping TypeName="dbAseguradoraModel.tbDanioResolucion">
+              <MappingFragment StoreEntitySet="tbDanioResolucion">
+                <ScalarProperty Name="codDanioResolucion" ColumnName="codDanioResolucion" />
+                <ScalarProperty Name="codResolucion" ColumnName="codResolucion" />
+                <ScalarProperty Name="codDanio" ColumnName="codDanio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPersona">
+            <EntityTypeMapping TypeName="dbAseguradoraModel.tbPersona">
+              <MappingFragment StoreEntitySet="tbPersona">
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="segundoApellido" ColumnName="segundoApellido" />
+                <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
+                <ScalarProperty Name="segundoNombre" ColumnName="segundoNombre" />
+                <ScalarProperty Name="primerNombre" ColumnName="primerNombre" />
+                <ScalarProperty Name="codPersona" ColumnName="codPersona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbReclamo">
+            <EntityTypeMapping TypeName="dbAseguradoraModel.tbReclamo">
+              <MappingFragment StoreEntitySet="tbReclamo">
+                <ScalarProperty Name="codDanioResolucion" ColumnName="codDanioResolucion" />
+                <ScalarProperty Name="codEstado" ColumnName="codEstado" />
                 <ScalarProperty Name="codSeguro" ColumnName="codSeguro" />
-          <ScalarProperty Name="codPersona" ColumnName="codPersona" />
-          <ScalarProperty Name="codVehiculo" ColumnName="codVehiculo" />
-          <ScalarProperty Name="codEstado" ColumnName="codEstado" />
-          <ScalarProperty Name="pagoMensual" ColumnName="pagoMensual" />
-          <ScalarProperty Name="fechaCreación" ColumnName="fechaCreación" />
-          <ScalarProperty Name="deducible" ColumnName="deducible" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbVehiculo">
-      <EntityTypeMapping TypeName="IsTypeOf(dbAseguradoraModel.tbVehiculo)">
-        <MappingFragment StoreEntitySet="tbVehiculo">
-          <ScalarProperty Name="codVehiculo" ColumnName="codVehiculo" />
-          <ScalarProperty Name="placa" ColumnName="placa" />
-          <ScalarProperty Name="marca" ColumnName="marca" />
-          <ScalarProperty Name="linea" ColumnName="linea" />
-          <ScalarProperty Name="modelo" ColumnName="modelo" />
-          <ScalarProperty Name="color" ColumnName="color" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-  </EntityContainerMapping>
+                <ScalarProperty Name="codReclamo" ColumnName="codReclamo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbSeguro">
+            <EntityTypeMapping TypeName="dbAseguradoraModel.tbSeguro">
+              <MappingFragment StoreEntitySet="tbSeguro">
+                <ScalarProperty Name="deducible" ColumnName="deducible" />
+                <ScalarProperty Name="fechaCreación" ColumnName="fechaCreación" />
+                <ScalarProperty Name="pagoMensual" ColumnName="pagoMensual" />
+                <ScalarProperty Name="codEstado" ColumnName="codEstado" />
+                <ScalarProperty Name="codVehiculo" ColumnName="codVehiculo" />
+                <ScalarProperty Name="codPersona" ColumnName="codPersona" />
+                <ScalarProperty Name="codSeguro" ColumnName="codSeguro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbVehiculo">
+            <EntityTypeMapping TypeName="dbAseguradoraModel.tbVehiculo">
+              <MappingFragment StoreEntitySet="tbVehiculo">
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="modelo" ColumnName="modelo" />
+                <ScalarProperty Name="linea" ColumnName="linea" />
+                <ScalarProperty Name="marca" ColumnName="marca" />
+                <ScalarProperty Name="placa" ColumnName="placa" />
+                <ScalarProperty Name="codVehiculo" ColumnName="codVehiculo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbResolucion">
+            <EntityTypeMapping TypeName="dbAseguradoraModel.tbResolucion">
+              <MappingFragment StoreEntitySet="tbResolucion">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="costoReparacion" ColumnName="costoReparacion" />
+                <ScalarProperty Name="resolucion" ColumnName="resolucion" />
+                <ScalarProperty Name="codResolucion" ColumnName="codResolucion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->

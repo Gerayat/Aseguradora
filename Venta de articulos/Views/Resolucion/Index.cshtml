@@ -4,25 +4,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Lista de resoluciones</h2>
-<div class="row">
-    <div class="col-md-10">
-        @Html.ActionLink("Nueva resolución", "Create")
-    </div>
-    <div class="col-md-2">
-        @Html.ActionLink("Regresar", "Index", "Reclamo")
-    </div>
-</div>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayName("Resolución")
+            @Html.DisplayNameFor(model => model.resolucion)
         </th>
         <th>
-            @Html.DisplayName("Estado")
+            @Html.DisplayNameFor(model => model.costoReparacion)
         </th>
         <th>
-            @Html.DisplayName("Descripción")
+            @Html.DisplayNameFor(model => model.estado)
         </th>
         <th></th>
     </tr>
@@ -33,15 +29,15 @@
             @Html.DisplayFor(modelItem => item.resolucion)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.costoReparacion)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.estado)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.tbReclamo.descripción)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.codResolucion }) |
-            @Html.ActionLink("Detalles", "Details", new { id=item.codResolucion }) |
-            @Html.ActionLink("Borrar", "Delete", new { id=item.codResolucion })
+            @Html.ActionLink("Edit", "Edit", new { id=item.codResolucion }) |
+            @Html.ActionLink("Details", "Details", new { id=item.codResolucion }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.codResolucion })
         </td>
     </tr>
 }

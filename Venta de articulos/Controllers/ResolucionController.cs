@@ -17,8 +17,7 @@ namespace Venta_de_articulos.Controllers
         // GET: Resolucion
         public ActionResult Index()
         {
-            var tbResolucion = db.tbResolucion.Include(t => t.tbReclamo);
-            return View(tbResolucion.ToList());
+            return View(db.tbResolucion.ToList());
         }
 
         // GET: Resolucion/Details/5
@@ -39,7 +38,6 @@ namespace Venta_de_articulos.Controllers
         // GET: Resolucion/Create
         public ActionResult Create()
         {
-            ViewBag.codReclamo = new SelectList(db.tbReclamo, "codReclamo", "descripción");
             return View();
         }
 
@@ -48,7 +46,7 @@ namespace Venta_de_articulos.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "codResolucion,codReclamo,resolucion,estado")] tbResolucion tbResolucion)
+        public ActionResult Create([Bind(Include = "codResolucion,resolucion,costoReparacion,estado")] tbResolucion tbResolucion)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +55,6 @@ namespace Venta_de_articulos.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.codReclamo = new SelectList(db.tbReclamo, "codReclamo", "descripción", tbResolucion.codReclamo);
             return View(tbResolucion);
         }
 
@@ -73,7 +70,6 @@ namespace Venta_de_articulos.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.codReclamo = new SelectList(db.tbReclamo, "codReclamo", "descripción", tbResolucion.codReclamo);
             return View(tbResolucion);
         }
 
@@ -82,7 +78,7 @@ namespace Venta_de_articulos.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "codResolucion,codReclamo,resolucion,estado")] tbResolucion tbResolucion)
+        public ActionResult Edit([Bind(Include = "codResolucion,resolucion,costoReparacion,estado")] tbResolucion tbResolucion)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +86,6 @@ namespace Venta_de_articulos.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.codReclamo = new SelectList(db.tbReclamo, "codReclamo", "descripción", tbResolucion.codReclamo);
             return View(tbResolucion);
         }
 

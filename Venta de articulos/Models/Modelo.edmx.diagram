@@ -4,19 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3a2380d1406345dfbe028277970235d0" Name="Diagram1">
-        <EntityTypeShape EntityType="dbAseguradoraModel.tbDanio" Width="1.5" PointX="7.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAseguradoraModel.tbPersona" Width="1.5" PointX="0.5" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAseguradoraModel.tbReclamo" Width="1.5" PointX="4.625" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAseguradoraModel.tbResolucion" Width="1.5" PointX="7.25" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAseguradoraModel.tbSeguro" Width="1.5" PointX="2.5" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbAseguradoraModel.tbVehiculo" Width="1.375" PointX="0.5" PointY="3.5" IsExpanded="true" />
-        <AssociationConnector Association="dbAseguradoraModel.FK_tbDanio_tbReclamo" ManuallyRouted="false" />
-        <AssociationConnector Association="dbAseguradoraModel.FK_tbSeguro_tbPersona" ManuallyRouted="false" />
-        <AssociationConnector Association="dbAseguradoraModel.FK_tbReclamo_tbSeguro" ManuallyRouted="false" />
-        <AssociationConnector Association="dbAseguradoraModel.FK_tbResolucion_tbReclamo" ManuallyRouted="false" />
-        <AssociationConnector Association="dbAseguradoraModel.FK_tbSeguro_tbVehiculo" ManuallyRouted="false" >
-        </AssociationConnector>
+      <Diagram DiagramId="3a2380d1406345dfbe028277970235d0" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="dbAseguradoraModel.tbDanio" Width="1.5" PointX="5.25" PointY="6.875" />
+        <EntityTypeShape EntityType="dbAseguradoraModel.tbDanioResolucion" Width="1.5" PointX="7.5" PointY="5.25" />
+        <EntityTypeShape EntityType="dbAseguradoraModel.tbPersona" Width="1.5" PointX="0.75" PointY="5.125" />
+        <EntityTypeShape EntityType="dbAseguradoraModel.tbReclamo" Width="1.5" PointX="5.25" PointY="1.375" />
+        <EntityTypeShape EntityType="dbAseguradoraModel.tbSeguro" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="dbAseguradoraModel.tbVehiculo" Width="1.5" PointX="0.75" PointY="1.25" />
+        <AssociationConnector Association="dbAseguradoraModel.FK_tbDanioResolucion_tbDanio" />
+        <AssociationConnector Association="dbAseguradoraModel.FK_tbReclamo_tbDanioResolucion" />
+        <AssociationConnector Association="dbAseguradoraModel.FK_tbSeguro_tbPersona" />
+        <AssociationConnector Association="dbAseguradoraModel.FK_tbReclamo_tbSeguro" />
+        <AssociationConnector Association="dbAseguradoraModel.FK_tbSeguro_tbVehiculo" />
+        <EntityTypeShape EntityType="dbAseguradoraModel.tbResolucion" Width="1.5" PointX="5.25" PointY="9.25" />
+        <AssociationConnector Association="dbAseguradoraModel.FK_tbDanioResolucion_tbResolucion" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

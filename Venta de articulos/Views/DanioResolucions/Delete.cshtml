@@ -1,4 +1,4 @@
-﻿@model Venta_de_articulos.Models.tbDanio
+﻿@model Venta_de_articulos.Models.tbDanioResolucion
 
 @{
     ViewBag.Title = "Delete";
@@ -8,23 +8,23 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>tbDanio</h4>
+    <h4>tbDanioResolucion</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
+            @Html.DisplayNameFor(model => model.tbDanio.descripcion)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.descripcion)
+            @Html.DisplayFor(model => model.tbDanio.descripcion)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.estado)
+            @Html.DisplayNameFor(model => model.tbResolucion.resolucion)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.estado)
+            @Html.DisplayFor(model => model.tbResolucion.resolucion)
         </dd>
 
     </dl>

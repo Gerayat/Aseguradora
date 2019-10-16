@@ -135,15 +135,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DanioController.cs" />
+    <Compile Include="Controllers\DanioResolucionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
-    <Compile Include="Controllers\ReclamoController.cs" />
+    <Compile Include="Controllers\ReclamosController.cs" />
     <Compile Include="Controllers\ResolucionController.cs" />
     <Compile Include="Controllers\SeguroController.cs" />
+    <Compile Include="Controllers\SimuladorController.cs" />
     <Compile Include="Controllers\VehiculoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DanioResolucion.cs" />
     <Compile Include="Models\Modelo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -160,6 +163,9 @@
       <DependentUpon>Modelo.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\tbDanio.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbDanioResolucion.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbPersona.cs">
@@ -247,21 +253,27 @@
     <Content Include="Views\Seguro\Details.cshtml" />
     <Content Include="Views\Seguro\Edit.cshtml" />
     <Content Include="Views\Seguro\Index.cshtml" />
-    <Content Include="Views\Reclamo\Create.cshtml" />
-    <Content Include="Views\Reclamo\Delete.cshtml" />
-    <Content Include="Views\Reclamo\Details.cshtml" />
-    <Content Include="Views\Reclamo\Edit.cshtml" />
-    <Content Include="Views\Reclamo\Index.cshtml" />
     <Content Include="Views\Danio\Create.cshtml" />
     <Content Include="Views\Danio\Delete.cshtml" />
     <Content Include="Views\Danio\Details.cshtml" />
     <Content Include="Views\Danio\Edit.cshtml" />
     <Content Include="Views\Danio\Index.cshtml" />
+    <Content Include="Views\Simulador\Simular.cshtml" />
+    <Content Include="Views\Reclamos\Create.cshtml" />
+    <Content Include="Views\Reclamos\Delete.cshtml" />
+    <Content Include="Views\Reclamos\Details.cshtml" />
+    <Content Include="Views\Reclamos\Edit.cshtml" />
+    <Content Include="Views\Reclamos\Index.cshtml" />
     <Content Include="Views\Resolucion\Create.cshtml" />
     <Content Include="Views\Resolucion\Delete.cshtml" />
     <Content Include="Views\Resolucion\Details.cshtml" />
     <Content Include="Views\Resolucion\Edit.cshtml" />
     <Content Include="Views\Resolucion\Index.cshtml" />
+    <Content Include="Views\DanioResolucions\Create.cshtml" />
+    <Content Include="Views\DanioResolucions\Delete.cshtml" />
+    <Content Include="Views\DanioResolucions\Details.cshtml" />
+    <Content Include="Views\DanioResolucions\Edit.cshtml" />
+    <Content Include="Views\DanioResolucions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Venta_de_articulos.Models.tbDanioResolucion>
+
+@{
+    ViewBag.Title = "Daños";
+}
+
+<h2>Daños</h2>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a class="btn btn-success" href="@Url.Action("Create")"><span class="glyphicon glyphicon-plus"></span>  Crear Nuevo</a>
+        &emsp;&emsp;
+        <a class="btn btn-primary" href="@Url.Action("Index", "Reclamos")"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>
+                Descripcion del daño
+            </th>
+            <th>
+                Descripcion de la resolucion
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbDanio.descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.tbResolucion.resolucion)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Editar", "Edit", new { id=item.codDanioResolucion }) |
+                    @Html.ActionLink("Detailles", "Details", new { id=item.codDanioResolucion }) |*@
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.codDanioResolucion })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
