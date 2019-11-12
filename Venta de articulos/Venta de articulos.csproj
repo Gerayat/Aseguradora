@@ -274,6 +274,7 @@
     <Content Include="Views\DanioResolucions\Details.cshtml" />
     <Content Include="Views\DanioResolucions\Edit.cshtml" />
     <Content Include="Views\DanioResolucions\Index.cshtml" />
+    <Content Include="Views\Simulador\FinSimulacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

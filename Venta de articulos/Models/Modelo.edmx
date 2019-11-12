@@ -41,6 +41,7 @@
           <Property Name="codSeguro" Type="int" />
           <Property Name="codEstado" Type="int" />
           <Property Name="codDanioResolucion" Type="int" />
+          <Property Name="fecha" Type="smalldatetime" Nullable="false" />
         </EntityType>
         <EntityType Name="tbResolucion">
           <Key>
@@ -259,6 +260,7 @@
           <Property Name="codDanioResolucion" Type="Int32" />
           <NavigationProperty Name="tbDanioResolucion" Relationship="dbAseguradoraModel.FK_tbReclamo_tbDanioResolucion" FromRole="tbReclamo" ToRole="tbDanioResolucion" />
           <NavigationProperty Name="tbSeguro" Relationship="dbAseguradoraModel.FK_tbReclamo_tbSeguro" FromRole="tbReclamo" ToRole="tbSeguro" />
+          <Property Name="fecha" Type="DateTime" Precision="0" Nullable="false" />
         </EntityType>
         <EntityType Name="tbSeguro">
           <Key>
@@ -409,6 +411,7 @@
           <EntitySetMapping Name="tbReclamo">
             <EntityTypeMapping TypeName="dbAseguradoraModel.tbReclamo">
               <MappingFragment StoreEntitySet="tbReclamo">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="codDanioResolucion" ColumnName="codDanioResolucion" />
                 <ScalarProperty Name="codEstado" ColumnName="codEstado" />
                 <ScalarProperty Name="codSeguro" ColumnName="codSeguro" />

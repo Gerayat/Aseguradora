@@ -18,6 +18,7 @@ namespace Venta_de_articulos.Models
         public Nullable<int> codSeguro { get; set; }
         public Nullable<int> codEstado { get; set; }
         public Nullable<int> codDanioResolucion { get; set; }
+        public System.DateTime fecha { get; set; }
     
         public virtual tbDanioResolucion tbDanioResolucion { get; set; }
         public virtual tbSeguro tbSeguro { get; set; }
