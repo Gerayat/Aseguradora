@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Venta_de_articulos.Models;
+using PagedList;
 
 namespace Venta_de_articulos.Controllers
 {
@@ -11,16 +12,22 @@ namespace Venta_de_articulos.Controllers
     {
         private dbAseguradoraEntities db = new dbAseguradoraEntities();
         private static List<tbReclamo> reclamos = new List<tbReclamo>();
+
         [HttpGet]
         public ActionResult Simular()
-        {
+        {   //limpiamos el array, si se omite, se acumula los registros de cada simulacion.
+            reclamos.Clear();
             return View();
         }
         [HttpPost]
         public ActionResult Simular(int? numero_simulaciones=0)
         {
+            //intervalo de tiempo de simulacion.
             int horas = 4;
-            Random tasaLlegada = new Random();
+            //tasa de llegada en horas.
+            Random tasaLlegada = new Random(DateTime.Now.Millisecond);
+            //llegan entre 15 y 30 clientes por hora
+            //Se obtiene, cada cuantos minutos llega un cliente. (intervalo de llegada del cliente en minutos).
             int minutos = 60 / tasaLlegada.Next(15, 30); //los 60 minutos dividios por el número aleaotrio de llegadas
             DateTime horaReclamo = DateTime.Now;
             int contadorHoras = horaReclamo.Hour; //almacena las horas de una en una
@@ -58,25 +65,35 @@ namespace Venta_de_articulos.Controllers
                 i++;
             }
             //db.SaveChanges();
-            return RedirectToAction("FinSimulacion", "Simulador", new { horaInicio = horaInicio, horas = horas });
+            return RedirectToAction("FinSimulacion", "Simulador", new {page=1, horaInicio = horaInicio, horas = horas });
         }
 
         [HttpGet]
-        public ActionResult FinSimulacion(int horaInicio, int horas)
+        public ActionResult FinSimulacion(int? page,int horaInicio, int horas)
         {
             List<int> llegadasHora = new List<int>();
+       
             for (int i = 0; i < horas; i++)
             {
                 //aqui quiero sacar el número de llegadas por cada hora de trabajo pero no logre, pense que podia
                 //de la forma que esta en el código siguiente pero no me dejó
-                //int numReclamos = reclamos.Where(t => t.fecha.Hour = (i+horaInicio)).Count();
-                //llegadasHora.add(numReclamos); 
+                int numReclamos = reclamos.Where(t => t.fecha.Hour == (i+horaInicio)).Count();
+                llegadasHora.Add(numReclamos); 
             }
             // una vez con todas las horas almacenadas, la tasa de llegada es la siguiente
             double tasaLlegada = llegadasHora.Average();
             // se le muestra al usuario en la pantalla y se le pide la tasa de servicio, ya con eso solo hay
-            // que hacer los calculos, podria hacerse con javascript para no recargar la págnia
-            return View(reclamos);
+            // que hacer los calculos, podria hacerse con javascript para no recargar la págnia.
+            ViewBag.tasaLlegada = tasaLlegada;
+            ViewBag.inicio = horaInicio;
+            ViewBag.horas = horas;
+            ViewBag.TotalRegistros = reclamos.Count;
+            int pageSize = 10;
+            int pageNumber =(page ?? 1);
+            ViewBag.page = pageNumber;
+            return View(reclamos.ToPagedList(pageNumber, pageSize));
+
+            //return View(reclamos);
         }
     }
 }

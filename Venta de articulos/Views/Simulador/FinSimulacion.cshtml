@@ -1,56 +1,198 @@
-﻿@model IEnumerable<Venta_de_articulos.Models.tbReclamo>
+﻿@*@model IEnumerable<Venta_de_articulos.Models.tbReclamo>*@
+@model PagedList.IPagedList<Venta_de_articulos.Models.tbReclamo>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<style>
+    .error{
+        border-color:red;
+    }
+    .correct{
+        border-color:green;
+    }
+    .ocultar{
+        display:none;
+    }
+    #msg{
+        color:red;
+    }
+</style>
 
 @{
     ViewBag.Title = "Reclamos";
+    int contador = (ViewBag.page - 1) * 10;
+    
 }
 <h2>Reclamos de simulación</h2>
 <div class="panel panel-default">
     <table class="table">
-        <tr>
-            <th>
-                # seguro
-            </th>
-            <th>
-                Propietario
-            </th>
-            <th>
-                Vehiculo
-            </th>
-            <th>
-                Daño
-            </th>
-            <th>
-                Resolucion
-            </th>
-            <th>
-                costo Rep.
-            </th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.tbSeguro.codSeguro)
-                </td>
-                <td>
-                    @item.tbSeguro.tbPersona.primerNombre @item.tbSeguro.tbPersona.primerApellido
-                </td>
-                <td>
-                    @item.tbSeguro.tbVehiculo.placa @item.tbSeguro.tbVehiculo.modelo  @item.tbSeguro.tbVehiculo.color
-                </td>
-                <td>
-                    @item.tbDanioResolucion.tbDanio.descripcion
-                </td>
-                <td>
-                    @item.tbDanioResolucion.tbResolucion.resolucion
-                </td>
-                <td>
-                    @item.tbDanioResolucion.tbResolucion.costoReparacion
-                </td>
+                <th>
+
+                </th>
+                <th>
+                    # seguro
+                </th>
+                <th>
+                    Propietario
+                </th>
+                <th>
+                    Vehiculo
+                </th>
+                <th>
+                    Daño
+                </th>
+                <th>
+                    Resolucion
+                </th>
+                <th>
+                    costo Rep.
+                </th>
             </tr>
-        }
-
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @{contador++;} @contador
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tbSeguro.codSeguro)
+                    </td>
+                    <td>
+                        @item.tbSeguro.tbPersona.primerNombre @item.tbSeguro.tbPersona.primerApellido
+                    </td>
+                    <td>
+                        @item.tbSeguro.tbVehiculo.placa @item.tbSeguro.tbVehiculo.modelo  @item.tbSeguro.tbVehiculo.color
+                    </td>
+                    <td>
+                        @item.tbDanioResolucion.tbDanio.descripcion
+                    </td>
+                    <td>
+                        @item.tbDanioResolucion.tbResolucion.resolucion
+                    </td>
+                    <td>
+                        @item.tbDanioResolucion.tbResolucion.costoReparacion
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td>
+                    Tasa de llegada:
+                </td>
+                <td>
+                    <span id="tsll">@ViewBag.tasaLlegada</span>   Clientes o reclamos / hora.
+                </td>
+                <td>
+                    Total reclamos: @ViewBag.TotalRegistros
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
     </table>
-
+    <br />
+    @Html.PagedListPager(Model, page => Url.Action("FinSimulacion", new { page, horaInicio = ViewBag.inicio, horas = ViewBag.horas }))
+    &nbsp;&nbsp;&nbsp;<strong>Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</strong>
 </div>
+<br />
+<div class="panel panel-default">
+    <h2>Teoria de colas</h2>
+   <br />
+   <form class="form-inline">
+       <div class="form-group">
+           <label for="vts">Tasa de servicio</label>
+           <input type="number" class="form-control" id="vts"  placeholder="Ingrese tasa de servicio" required>
+       </div>
+       <button type="button" class="btn btn-primary" onclick="Calcular()">Calcular</button>
+       <label class="ocultar small" id="msg"></label>
+   </form>
+    <br />
+    <div >
+        <table class="table table-bordered">
+            <thead class="bg-info">
+                <tr>
+                    <td>No.</td>
+                    <th>
+                        Metrica
+                    </th>
+                    <th>
+                        Resultado en horas
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Probabilidad de uso del sistema</td>
+                    <td><label id="p"></label></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Tiempo de espera del reclamo</td>
+                    <td><label id="wq"></label></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Numero de reclamos en cola</td>
+                    <td><label id="lq"></label></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Tiempo promedio que un reclamo pasa en el sistema</td>
+                    <td><label id="ws"></label></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Numero de reclamos en el sistema</td>
+                    <td><label id="ls"></label></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script>
+
+    function Calcular() {
+        
+        //calcular la probabilidad
+        var tasa_servicio = $("#vts").val();
+        var tasa_llegada = parseInt($("#tsll").html());
+        console.log(tasa_llegada);
+        console.log(tasa_servicio);
+        //validacion
+        var mensaje_error = "El valor ingresado debe ser mayor a " + tasa_llegada;
+        if (tasa_servicio <= tasa_llegada) {
+            $("#msg").html(mensaje_error);
+            $("#vts").addClass("error");
+            $("#msg").removeClass("ocultar");
+            return;
+        } else {
+            $("#vts").removeClass("error");
+            $("#msg").addClass("ocultar");
+        }
+        if (tasa_llegada == 0) { alert("la tasa de llegada es 0"); return;}
+        //calculos
+        var probabilidad = tasa_llegada / tasa_servicio;
+        $("#p").html(probabilidad);
+        //calcular la tiempo promedio en la cola
+        wq = tasa_llegada / (tasa_servicio * (tasa_servicio - tasa_llegada));
+        $("#wq").html(wq);
+        //calcular logintud de la cola
+        lq = tasa_llegada * wq;
+        $("#lq").html(lq);
+        //calcular el tiempo de espera en el sistema
+        ws = wq + (1 / tasa_servicio);
+        $("#ws").html(ws);
+        //calcular numero de clientes en el sistema
+        ls = tasa_llegada * ws;
+        $("#ls").html(ls);
+    }
+</script>
+
