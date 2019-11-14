@@ -7,16 +7,17 @@ ViewBag.Title = "Simular";
 @using (Html.BeginForm("Simular","Simulador",FormMethod.Post))
 {
 <div class="form-group">
-    <label class="control-label col-md-2" for="numero_simulaciones">Numero de reclamos: </label>
+    <label class="control-label col-md-3" for="numero_simulaciones">Numero de horas a sumular: </label>
     <div class="col-md-2">
-        @Html.Editor("numero_simulaciones", new { htmlAttributes = new { @class = "form-control", @id = "numero_simulaciones", @name = "numero_simulaciones", @type="number" } })
+        @Html.Editor("horas", new { htmlAttributes = new { @class = "form-control", @id = "horas", @name = "horas", @type="number" } })
     </div>
-    <div class="col-md-8">
+    <div class="col-md-7">
         <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-check"></span> Simular</button>
     </div>
 </div>
 }
 <br />
+
  
 
 

@@ -20,27 +20,26 @@ namespace Venta_de_articulos.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Simular(int? numero_simulaciones=0)
+        public ActionResult Simular(int horas)
         {
-            //intervalo de tiempo de simulacion.
-            int horas = 4;
-            //tasa de llegada en horas.
             Random tasaLlegada = new Random(DateTime.Now.Millisecond);
-            //llegan entre 15 y 30 clientes por hora
-            //Se obtiene, cada cuantos minutos llega un cliente. (intervalo de llegada del cliente en minutos).
-            int minutos = 60 / tasaLlegada.Next(15, 30); //los 60 minutos dividios por el número aleaotrio de llegadas
+          
+            int minutos = 60 / tasaLlegada.Next(1, 10); //los 60 minutos dividios por el número aleaotrio de llegadas
             DateTime horaReclamo = DateTime.Now;
-            int contadorHoras = horaReclamo.Hour; //almacena las horas de una en una
-            int horaInicio = horaReclamo.Hour; //almacena la hora en la que se inicia el trabajo
+              int contadorHoras = horaReclamo.Hour; //almacena las horas de una en una
+              int horaInicio = horaReclamo.Hour;
+           
             //selecccionamos todos los codSeguro y codDanioResolucion existentes;
             var codigos_seguros =  db.tbSeguro.Select(x=>x.codSeguro).ToList();
             var codigos_danio_resolucion = db.tbDanioResolucion.Select(x=>x.codDanioResolucion).ToList();
             //creamos un random
-            Random numero_aleatorio = new Random(DateTime.Now.Millisecond) ;
+            Random numero_aleatorio = new Random(DateTime.Now.Millisecond);
             int i = 1;
-            //segun el numero de reclamos que se desea generar...
-            while((horaReclamo.Hour - horaInicio) <= horas)
+
+         
+            while ((horaReclamo.Hour - horaInicio) <= horas)
             {
+        
                 //elegimos aleatoriamente un seguro (cod_seguro).
                 var cod_seguro_aleatorio = codigos_seguros[numero_aleatorio.Next(0, codigos_seguros.Count - 1)];
                 var cod_danio_aleatorio= codigos_danio_resolucion[numero_aleatorio.Next(0, codigos_danio_resolucion.Count - 1)]; 
@@ -53,13 +52,13 @@ namespace Venta_de_articulos.Controllers
                 reclamo.fecha = horaReclamo; //Se guarda fecha en la que se realizó el reclamo
                 reclamo.tbSeguro = db.tbSeguro.Find(reclamo.codSeguro);
                 reclamo.tbDanioResolucion = db.tbDanioResolucion.Find(reclamo.codDanioResolucion);
-                horaReclamo = horaReclamo.AddMinutes(minutos); //se agregan los minutos a la fecha para avanzar
+                 horaReclamo=horaReclamo.AddMinutes(minutos); //se agregan los minutos a la fecha para avanzar
                 //db.tbReclamo.Add(reclamo);
                 reclamos.Add(reclamo);
                 if (contadorHoras < horaReclamo.Hour)
                 {
                     //si la hora ya cambio, hacer un nuevo random para el número de reclamos que se realizarán en la nueva hora
-                    minutos = 60 / tasaLlegada.Next(15, 30);
+                    minutos = 60 / tasaLlegada.Next(1, 10);
                     contadorHoras = horaReclamo.Hour; //se actualiza el contador a la nueva hora
                 }
                 i++;
@@ -77,8 +76,9 @@ namespace Venta_de_articulos.Controllers
             {
                 //aqui quiero sacar el número de llegadas por cada hora de trabajo pero no logre, pense que podia
                 //de la forma que esta en el código siguiente pero no me dejó
-                int numReclamos = reclamos.Where(t => t.fecha.Hour == (i+horaInicio)).Count();
-                llegadasHora.Add(numReclamos); 
+                 int numReclamos = reclamos.Where(t => t.fecha.Hour == (i+horaInicio)).Count();
+                llegadasHora.Add(numReclamos);
+               
             }
             // una vez con todas las horas almacenadas, la tasa de llegada es la siguiente
             double tasaLlegada = llegadasHora.Average();
@@ -91,9 +91,7 @@ namespace Venta_de_articulos.Controllers
             int pageSize = 10;
             int pageNumber =(page ?? 1);
             ViewBag.page = pageNumber;
-            return View(reclamos.ToPagedList(pageNumber, pageSize));
-
-            //return View(reclamos);
+            return View(reclamos.ToPagedList(pageNumber, pageSize));       
         }
     }
 }

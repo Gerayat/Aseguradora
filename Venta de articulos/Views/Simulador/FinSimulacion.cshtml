@@ -48,6 +48,9 @@
                 <th>
                     costo Rep.
                 </th>
+                <th>
+                    Fecha
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -75,6 +78,10 @@
                     <td>
                         @item.tbDanioResolucion.tbResolucion.costoReparacion
                     </td>
+                    <td>
+                        @item.fecha
+                    </td>
+                        
                 </tr>
             }
         </tbody>
@@ -154,6 +161,26 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+<br />
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h4 class="card-title">CHI CUADRADO</h4>
+        <form>
+            <div class="form-group">
+                <label class="col-form-label" for="formGroupExampleInput"></label>
+                <select class="form-control">
+                    <option>Seleccione una marca</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label" for="formGroupExampleInput2">Another label</label>
+                <select class="form-control">
+                    <option>Seleccione un problema</option>
+                </select>
+            </div>
+        </form>
     </div>
 </div>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
