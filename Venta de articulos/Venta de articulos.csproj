@@ -168,6 +168,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Modelo.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbChiCuadrada.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbDanio.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>

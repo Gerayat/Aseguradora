@@ -18,6 +18,7 @@
         <AssociationConnector Association="dbAseguradoraModel.FK_tbSeguro_tbVehiculo" />
         <EntityTypeShape EntityType="dbAseguradoraModel.tbResolucion" Width="1.5" PointX="5.25" PointY="9.25" />
         <AssociationConnector Association="dbAseguradoraModel.FK_tbDanioResolucion_tbResolucion" />
+        <EntityTypeShape EntityType="dbAseguradoraModel.tbChiCuadrada" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

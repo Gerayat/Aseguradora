@@ -32,5 +32,6 @@ namespace Venta_de_articulos.Models
         public virtual DbSet<tbSeguro> tbSeguro { get; set; }
         public virtual DbSet<tbVehiculo> tbVehiculo { get; set; }
         public virtual DbSet<tbResolucion> tbResolucion { get; set; }
+        public virtual DbSet<tbChiCuadrada> tbChiCuadrada { get; set; }
     }
 }

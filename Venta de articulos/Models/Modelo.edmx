@@ -5,6 +5,23 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="dbAseguradoraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbChiCuadrada">
+          <Key>
+            <PropertyRef Name="DF" />
+          </Key>
+          <Property Name="DF" Type="float" Nullable="false" />
+          <Property Name="a" Type="float" Nullable="false" />
+          <Property Name="b" Type="float" Nullable="false" />
+          <Property Name="c" Type="float" Nullable="false" />
+          <Property Name="d" Type="float" Nullable="false" />
+          <Property Name="e" Type="float" Nullable="false" />
+          <Property Name="f" Type="float" Nullable="false" />
+          <Property Name="g" Type="float" Nullable="false" />
+          <Property Name="h" Type="float" Nullable="false" />
+          <Property Name="i" Type="float" Nullable="false" />
+          <Property Name="j" Type="float" Nullable="false" />
+          <Property Name="k" Type="float" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbDanio">
           <Key>
             <PropertyRef Name="codDanio" />
@@ -148,6 +165,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="dbAseguradoraModelStoreContainer">
+          <EntitySet Name="tbChiCuadrada" EntityType="Self.tbChiCuadrada" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbDanio" EntityType="Self.tbDanio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbDanioResolucion" EntityType="Self.tbDanioResolucion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbPersona" EntityType="Self.tbPersona" Schema="dbo" store:Type="Tables" />
@@ -216,6 +234,7 @@
             <End Role="tbResolucion" EntitySet="tbResolucion" />
             <End Role="tbDanioResolucion" EntitySet="tbDanioResolucion" />
           </AssociationSet>
+          <EntitySet Name="tbChiCuadrada" EntityType="dbAseguradoraModel.tbChiCuadrada" />
         </EntityContainer>
         <EntityType Name="tbDanio">
           <Key>
@@ -371,6 +390,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbChiCuadrada">
+          <Key>
+            <PropertyRef Name="DF" />
+          </Key>
+          <Property Name="DF" Type="Double" Nullable="false" />
+          <Property Name="a" Type="Double" Nullable="false" />
+          <Property Name="b" Type="Double" Nullable="false" />
+          <Property Name="c" Type="Double" Nullable="false" />
+          <Property Name="d" Type="Double" Nullable="false" />
+          <Property Name="e" Type="Double" Nullable="false" />
+          <Property Name="f" Type="Double" Nullable="false" />
+          <Property Name="g" Type="Double" Nullable="false" />
+          <Property Name="h" Type="Double" Nullable="false" />
+          <Property Name="i" Type="Double" Nullable="false" />
+          <Property Name="j" Type="Double" Nullable="false" />
+          <Property Name="k" Type="Double" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -451,6 +487,24 @@
                 <ScalarProperty Name="costoReparacion" ColumnName="costoReparacion" />
                 <ScalarProperty Name="resolucion" ColumnName="resolucion" />
                 <ScalarProperty Name="codResolucion" ColumnName="codResolucion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbChiCuadrada">
+            <EntityTypeMapping TypeName="dbAseguradoraModel.tbChiCuadrada">
+              <MappingFragment StoreEntitySet="tbChiCuadrada">
+                <ScalarProperty Name="k" ColumnName="k" />
+                <ScalarProperty Name="j" ColumnName="j" />
+                <ScalarProperty Name="i" ColumnName="i" />
+                <ScalarProperty Name="h" ColumnName="h" />
+                <ScalarProperty Name="g" ColumnName="g" />
+                <ScalarProperty Name="f" ColumnName="f" />
+                <ScalarProperty Name="e" ColumnName="e" />
+                <ScalarProperty Name="d" ColumnName="d" />
+                <ScalarProperty Name="c" ColumnName="c" />
+                <ScalarProperty Name="b" ColumnName="b" />
+                <ScalarProperty Name="a" ColumnName="a" />
+                <ScalarProperty Name="DF" ColumnName="DF" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
