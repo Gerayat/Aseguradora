@@ -25,9 +25,9 @@ namespace Venta_de_articulos.Controllers
             Random tasaLlegada = new Random(DateTime.Now.Millisecond);
           
             int minutos = 60 / tasaLlegada.Next(1, 10); //los 60 minutos dividios por el número aleaotrio de llegadas
-            DateTime horaReclamo = DateTime.Now;
-              int contadorHoras = horaReclamo.Hour; //almacena las horas de una en una
-              int horaInicio = horaReclamo.Hour;
+            DateTime horaReclamo = horaReclamo = new DateTime(2019, 01, 01, 0, 0, 0);
+            int contadorHoras = horaReclamo.Hour; //almacena las horas de una en una
+            int horaInicio = horaReclamo.Hour;
            
             //selecccionamos todos los codSeguro y codDanioResolucion existentes;
             var codigos_seguros =  db.tbSeguro.Select(x=>x.codSeguro).ToList();
@@ -52,7 +52,7 @@ namespace Venta_de_articulos.Controllers
                 reclamo.fecha = horaReclamo; //Se guarda fecha en la que se realizó el reclamo
                 reclamo.tbSeguro = db.tbSeguro.Find(reclamo.codSeguro);
                 reclamo.tbDanioResolucion = db.tbDanioResolucion.Find(reclamo.codDanioResolucion);
-                 horaReclamo=horaReclamo.AddMinutes(minutos); //se agregan los minutos a la fecha para avanzar
+                horaReclamo = horaReclamo.AddMinutes(minutos); //se agregan los minutos a la fecha para avanzar
                 //db.tbReclamo.Add(reclamo);
                 reclamos.Add(reclamo);
                 if (contadorHoras < horaReclamo.Hour)
@@ -76,7 +76,7 @@ namespace Venta_de_articulos.Controllers
             {
                 //aqui quiero sacar el número de llegadas por cada hora de trabajo pero no logre, pense que podia
                 //de la forma que esta en el código siguiente pero no me dejó
-                 int numReclamos = reclamos.Where(t => t.fecha.Hour == (i+horaInicio)).Count();
+                int numReclamos = reclamos.Where(t => t.fecha.Hour == (i+horaInicio)).Count();
                 llegadasHora.Add(numReclamos);
                
             }
