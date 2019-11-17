@@ -43,9 +43,9 @@ namespace Venta_de_articulos.Controllers
                 codPersona = x.codPersona,
                 nombrecompleto = x.primerNombre +" "+ x.segundoNombre +" "+ x.primerApellido +" "+ x.segundoApellido
             }).ToList();
-            var vehiculos = db.tbVehiculo.Select(v=>new {
+            var vehiculos = db.tbVehiculo.Select(v => new {
                 codVehiculo=v.codVehiculo,
-                descripcion=v.placa+" "+v.marca+" "+v.color
+                descripcion=v.placa+" "+v.tbMarca.marca+" "+v.color
             }).ToList();
 
             ViewBag.codPersona = new SelectList(personas, "codPersona", "nombrecompleto");
@@ -74,7 +74,7 @@ namespace Venta_de_articulos.Controllers
             }).ToList();
             var vehiculos = db.tbVehiculo.Select(v => new {
                 codVehiculo = v.codVehiculo,
-                descripcion = v.placa + " " + v.marca + " " + v.color
+                descripcion = v.placa + " " + v.tbMarca.marca + " " + v.color
             }).ToList();
 
             ViewBag.codPersona = new SelectList(personas, "codPersona", "nombrecompleto");
@@ -105,7 +105,7 @@ namespace Venta_de_articulos.Controllers
             }).ToList();
             var vehiculos = db.tbVehiculo.Select(v => new {
                 codVehiculo = v.codVehiculo,
-                descripcion = v.placa + " " + v.marca + " " + v.color
+                descripcion = v.placa + " " + v.tbMarca.marca + " " + v.color
             }).ToList();
 
             ViewBag.codPersona = new SelectList(personas, "codPersona", "nombrecompleto");
@@ -135,7 +135,7 @@ namespace Venta_de_articulos.Controllers
             }).ToList();
             var vehiculos = db.tbVehiculo.Select(v => new {
                 codVehiculo = v.codVehiculo,
-                descripcion = v.placa + " " + v.marca + " " + v.color
+                descripcion = v.placa + " " + v.tbMarca.marca + " " + v.color
             }).ToList();
 
             ViewBag.codPersona = new SelectList(personas, "codPersona", "nombrecompleto");

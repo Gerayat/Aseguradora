@@ -177,6 +177,9 @@
     <Compile Include="Models\tbDanioResolucion.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbMarca.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbPersona.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>

@@ -22,11 +22,12 @@ namespace Venta_de_articulos.Models
     
         public int codVehiculo { get; set; }
         public string placa { get; set; }
-        public string marca { get; set; }
         public string linea { get; set; }
         public Nullable<int> modelo { get; set; }
         public string color { get; set; }
+        public int cod_marca { get; set; }
     
+        public virtual tbMarca tbMarca { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbSeguro> tbSeguro { get; set; }
     }

@@ -25,13 +25,14 @@ namespace Venta_de_articulos.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tbChiCuadrada> tbChiCuadrada { get; set; }
         public virtual DbSet<tbDanio> tbDanio { get; set; }
         public virtual DbSet<tbDanioResolucion> tbDanioResolucion { get; set; }
+        public virtual DbSet<tbMarca> tbMarca { get; set; }
         public virtual DbSet<tbPersona> tbPersona { get; set; }
         public virtual DbSet<tbReclamo> tbReclamo { get; set; }
+        public virtual DbSet<tbResolucion> tbResolucion { get; set; }
         public virtual DbSet<tbSeguro> tbSeguro { get; set; }
         public virtual DbSet<tbVehiculo> tbVehiculo { get; set; }
-        public virtual DbSet<tbResolucion> tbResolucion { get; set; }
-        public virtual DbSet<tbChiCuadrada> tbChiCuadrada { get; set; }
     }
 }

@@ -91,6 +91,19 @@ namespace Venta_de_articulos.Controllers
             int pageSize = 10;
             int pageNumber =(page ?? 1);
             ViewBag.page = pageNumber;
+            ViewBag.codDanio = new SelectList(db.tbDanio, "codDanio", "descripcion");
+            var marcas = (from v in db.tbVehiculo
+                          join m in reclamos on v.cod_marca equals m.tbSeguro.tbVehiculo.tbMarca.cod_marca
+                          select new
+                          {
+                              cod_marca = m.tbSeguro.tbVehiculo.tbMarca.cod_marca,
+                              marca = m.tbSeguro.tbVehiculo.tbMarca.marca
+                          }).ToList();
+            var danios= (from d in db.tbDanio select new { cod_danio=d.codDanio, danio=d.descripcion }).ToList(); 
+            ViewBag.marca = new SelectList(marcas, "cod_marca", "marca");
+            ViewBag.danio = new SelectList(danios, "cod_danio", "danio");
+
+
             return View(reclamos.ToPagedList(pageNumber, pageSize));       
         }
     }
