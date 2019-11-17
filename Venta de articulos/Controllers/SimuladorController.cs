@@ -72,22 +72,34 @@ namespace Venta_de_articulos.Controllers
         [HttpGet]
         public ActionResult FinSimulacion(int? page, int horas)
         {
-            List<string> lstHoras = new List<string>(); //lista para enviar a chartjs como eje X
-            List<int> llegadasHora = new List<int>(); //lista para enviar a chartjs como eje Y
-
-            for (int i = 0; i < horas; i++)
+            List<int> lstHoras = Enumerable.Range(1, 24).ToList(); //lista para enviar a chartjs como eje X
+            List<int> llegadasHoras = new List<int>(); //lista que almacena el número de llegadas sin importar dias (sirve para obtener la tasa de llegadas
+            List<List<int>> llegadasDia = new List<List<int>>(); //lista que almacena las listas por dias
+            int dias = (horas / 24) + 1;
+            for (int dia = 1; dia <= dias; dia++)
             {
-                int numReclamos = reclamos.Where(t => t.fecha.Hour == (i)).Count();
-                llegadasHora.Add(numReclamos);
-                if (horas <= 24)
-                    lstHoras.Add("Hora " + (i + 1).ToString());  
-                else
-                    lstHoras.Add((i + 1).ToString());
+                List<int> llegadasDiaHora = new List<int>(); //lista para enviar a chartjs como eje Y
+                int numLlegadas = 0;
+                int hora = 0;
+                do
+                {
+                    numLlegadas = reclamos.Where(t => t.fecha.Day == dia && t.fecha.Hour == hora).Count();
+                    if (numLlegadas > 0)
+                    {
+                        llegadasDiaHora.Add(numLlegadas);
+                        llegadasHoras.Add(numLlegadas);
+                    }
+                    hora++;
+                } while (numLlegadas > 0 && hora <= 24);
+                if (llegadasDiaHora.Count > 0)
+                {
+                    llegadasDia.Add(llegadasDiaHora);
+                }
             }
-            // una vez con todas las horas almacenadas, la tasa de llegada es la siguiente
-            double tasaLlegada = llegadasHora.Average();
 
-            ViewBag.llegadasHora = llegadasHora;
+            // una vez con todas las horas almacenadas, la tasa de llegada es la siguiente
+            double tasaLlegada = llegadasHoras.Average();
+            ViewBag.llegadasDia = llegadasDia;
             ViewBag.lstHoras = lstHoras;
             ViewBag.tasaLlegada = tasaLlegada;
             ViewBag.horas = horas;

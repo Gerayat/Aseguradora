@@ -261,37 +261,29 @@
 </script>
 
 <script>
-    var llegadasHora = @Html.Raw(Json.Encode(ViewBag.llegadasHora));
     var lstHoras = @Html.Raw(Json.Encode(ViewBag.lstHoras));
+    var horas = @ViewBag.horas;
 
     var ctx = document.getElementById('myChart').getContext('2d');
     var chart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: lstHoras,
-            datasets: [{
-                label: 'Número de llegadas',
-                data: llegadasHora,
-                backgroundColor: 'rgb(54, 162, 235, 0.8)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 2,
-                fill: false
-            }]
+            datasets: []
         },
         options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            },
             layout: {
                 padding: {
                     left: 25,
                     right: 25,
                     top: 0,
                     bottom: 0
+                }
+            },
+            elements: {
+                line: {
+                    tension: 0.2, // disables bezier curves,
+                    pointRadius: 0.1
                 }
             },
             tooltips: {
@@ -314,22 +306,32 @@
         }
     });
 
-    //$(document).ready(function () {
-    //    //window.myLine = new Chart(ctx, myChart);
-    //    agregarDatos();
-    //});
+    $(document).ready(function () {
+        // se agrega la linea recta que representa la tasa de llegada calculada
+        var tasaLlegada = (@ViewBag.tasaLlegada).toFixed(2);
+        var dataset = [];
+        for (var i = 0; i < 24; i++) {
+            dataset.push(tasaLlegada);
+        }
+        var color = random_rgba();
+        var newDataset = { label: 'Tasa Llegada', backgroundColor: color, borderColor: color, data: dataset, fill: false, borderWidth: 1 }
+        chart.data.datasets.push(newDataset);
 
-    //function agregarDatos() {
-    //    var newDataset = {
-    //        label: 'Número de llegadas ',
-    //        backgroundColor: 'rgb(54, 200, 235, 0.8)',
-    //        borderColor: 'rgb(54, 200, 235, 0.8)',
-    //        data: [1,2,3,4,5],
-    //        fill: false
-    //    };
+        @{  int i = 1; }
+        @foreach (List<int> lst in ViewBag.llegadasDia)
+        {
+            @:color = random_rgba();
+            @:var newDataset = { label: 'Día ' + @i, backgroundColor: color, borderColor: color, data: @Html.Raw(Json.Encode(lst)), fill: false, borderWidth: 2 }
+            @:chart.data.datasets.push(newDataset);
+            i++;
+        }
+        chart.update();
+    });
 
-    //    chart.data.datasets.push(newDataset);
-    //    chart.update();
-    //}
+    function random_rgba() {
+        var o = Math.round, r = Math.random, s = 255;
+        return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',0.8)';
+    }
+
 </script>
 
