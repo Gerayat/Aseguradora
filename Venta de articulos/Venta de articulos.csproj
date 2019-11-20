@@ -152,7 +152,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\clsTablaChi.cs" />
     <Compile Include="Models\DanioResolucion.cs" />
+    <Compile Include="Models\GradoSignificacia.cs" />
+    <Compile Include="Models\MarcasDanios.cs" />
     <Compile Include="Models\Modelo.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

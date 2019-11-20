@@ -30,10 +30,10 @@
                 <th>
                     Placa
                 </th>
-                <th>
+                @*<th>
                     Estado
-                </th>
-                <th></th>
+                </th>*@
+                <th>Opciones</th>
             </tr>
         </thead>
 
@@ -53,9 +53,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.tbVehiculo.placa)
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.codEstado)
-                    </td>
+                    </td>*@
                     <td>
                         @Html.ActionLink("Modificar", "Edit", new { id = item.codSeguro }) |
                         @Html.ActionLink("Detalles", "Details", new { id = item.codSeguro }) |

@@ -3,189 +3,273 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 <style>
-    .error{
-        border-color:red;
+    .error {
+        border-color: red;
     }
-    .correct{
-        border-color:green;
+
+    .correct {
+        border-color: green;
     }
-    .ocultar{
-        display:none;
+
+    .ocultar {
+        display: none;
     }
-    #msg{
-        color:red;
+
+    #msg {
+        color: red;
+    }
+    .item {
+        padding: 5px;
+        margin-left: 3px;
+        background-color: #21dbc4;
+        color: #ffffff;
+        border-radius: 3px;
     }
 </style>
 
 @{
     ViewBag.Title = "Reclamos";
     int contador = (ViewBag.page - 1) * 10;
-    
 }
-<h2>Reclamos de simulación</h2>
-<div class="panel panel-default">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
+<h1><strong>RESULTADOS</strong></h1>
 
-                </th>
-                <th>
-                    # seguro
-                </th>
-                <th>
-                    Propietario
-                </th>
-                <th>
-                    Vehiculo
-                </th>
-                <th>
-                    Daño
-                </th>
-                <th>
-                    Resolucion
-                </th>
-                <th>
-                    costo Rep.
-                </th>
-                <th>
-                    Fecha
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @{contador++;} @contador
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.tbSeguro.codSeguro)
-                    </td>
-                    <td>
-                        @item.tbSeguro.tbPersona.primerNombre @item.tbSeguro.tbPersona.primerApellido
-                    </td>
-                    <td>
-                        @item.tbSeguro.tbVehiculo.placa @item.tbSeguro.tbVehiculo.modelo  @item.tbSeguro.tbVehiculo.color
-                    </td>
-                    <td>
-                        @item.tbDanioResolucion.tbDanio.descripcion
-                    </td>
-                    <td>
-                        @item.tbDanioResolucion.tbResolucion.resolucion
-                    </td>
-                    <td>
-                        @item.tbDanioResolucion.tbResolucion.costoReparacion
-                    </td>
-                    <td>
-                        @item.fecha
-                    </td>
-                        
-                </tr>
-            }
-        </tbody>
-        <tfoot>
-            <tr>
-                <td></td>
-                <td>
-                    Tasa de llegada:
-                </td>
-                <td>
-                    <span id="tsll">@ViewBag.tasaLlegada</span>   Clientes o reclamos / hora.
-                </td>
-                <td>
-                    Total reclamos: @ViewBag.TotalRegistros
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tfoot>
-    </table>
-    <br />
-    @Html.PagedListPager(Model, page => Url.Action("FinSimulacion", new { page, horaInicio = ViewBag.inicio, horas = ViewBag.horas }))
-    &nbsp;&nbsp;&nbsp;<strong>Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</strong>
-</div>
-<br />
+@*PANEL DE RECLAMOS*@
 <div class="panel panel-default">
-    <h2>Teoria de colas</h2>
-   <br />
-   <form class="form-inline">
-       <div class="form-group">
-           <label for="vts">Tasa de servicio</label>
-           <input type="number" class="form-control" id="vts"  placeholder="Ingrese tasa de servicio" required>
-       </div>
-       <button type="button" class="btn btn-primary" onclick="Calcular()">Calcular</button>
-       <label class="ocultar small" id="msg"></label>
-   </form>
-    <br />
-    <div >
-        <table class="table table-bordered">
-            <thead class="bg-info">
-                <tr>
-                    <td>No.</td>
-                    <th>
-                        Metrica
-                    </th>
-                    <th>
-                        Resultado en horas
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Probabilidad de uso del sistema</td>
-                    <td><label id="p"></label></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Tiempo de espera del reclamo</td>
-                    <td><label id="wq"></label></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Numero de reclamos en cola</td>
-                    <td><label id="lq"></label></td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Tiempo promedio que un reclamo pasa en el sistema</td>
-                    <td><label id="ws"></label></td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Numero de reclamos en el sistema</td>
-                    <td><label id="ls"></label></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="panel-heading">
+        <div class="text-center"><h3>Reclamos</h3></div>
+    </div>
+    <div class="panel-body">
+        <div class="panel panel-default">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th>
+                            # seguro
+                        </th>
+                        <th>
+                            Propietario
+                        </th>
+                        <th>
+                            Vehiculo
+                        </th>
+                        <th>
+                            Daño
+                        </th>
+                        <th>
+                            Resolucion
+                        </th>
+                        <th>
+                            costo Rep.
+                        </th>
+                        <th>
+                            Fecha
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @{contador++;} @contador
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tbSeguro.codSeguro)
+                            </td>
+                            <td>
+                                @item.tbSeguro.tbPersona.primerNombre.ToString() @item.tbSeguro.tbPersona.primerApellido.ToString()
+                            </td>
+                            <td>
+                                @item.tbSeguro.tbVehiculo.placa @item.tbSeguro.tbVehiculo.modelo  @item.tbSeguro.tbVehiculo.tbMarca.marca
+                            </td>
+                            <td>
+                                @item.tbDanioResolucion.tbDanio.descripcion
+                            </td>
+                            <td>
+                                @item.tbDanioResolucion.tbResolucion.resolucion
+                            </td>
+                            <td>
+                                @item.tbDanioResolucion.tbResolucion.costoReparacion
+                            </td>
+                            <td>
+                                @item.fecha
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td class="text-right">
+                            <strong>Tasa de llegada:</strong>
+                        </td>
+                        <td colspan="2" class="text-left">
+                            <span id="tsll">@ViewBag.tasaLlegada</span>   Clientes/reclamos por hora.
+                        </td>
+                        <td class="text-right">
+                            <strong>Total reclamos:</strong>
+                        </td>
+                        <td class="text-left">
+                            @ViewBag.TotalRegistros
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="text-center">
+            @Html.PagedListPager(Model, page => Url.Action("FinSimulacion", new { page, horas = ViewBag.horas }))
+        </div>
+        @*&nbsp;&nbsp;&nbsp;<strong>Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</strong>*@
     </div>
 </div>
 <br />
-<div class="card" style="width: 100%;">
-    <div class="card-body">
-        <h4 class="card-title">CHI CUADRADO</h4>
-        <form>
+@*PANEL DE GRAFICO*@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="text-center"><h3>Gráfico de reclamos por hora</h3></div>
+    </div>
+    <div class="panel-body">
+        <canvas id="myChart" width="400" height="150"></canvas>
+    </div>
+</div>
+<br />
+@*PANEL PARA APLICACIÓN DE TEORIA DE COLAS*@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="text-center"><h3>Aplicación de Tería de colas</h3></div>
+    </div>
+    <div class="panel-body">
+        <form class="form-inline">
             <div class="form-group">
-                <label class="col-form-label" for="formGroupExampleInput"></label>
-
-                @Html.DropDownList("marca", null, htmlAttributes: new { @class = "form-control" })
+                <label for="vts">Tasa de servicio</label>
+                <input type="number" class="form-control" id="vts" placeholder="Ingrese tasa de servicio" required>
             </div>
-            <div class="form-group">
-                <label class="col-form-label" for="formGroupExampleInput2">Another label</label>
-
-                @Html.DropDownList("danio", null, htmlAttributes: new { @class = "form-control" })
-            </div>
+            <button type="button" class="btn btn-primary" onclick="Calcular()">Calcular</button>
+            <label class="ocultar small" id="msg"></label>
         </form>
+        <br />
+        <div>
+            <table class="table table-bordered table-hover">
+                <thead class="bg-info">
+                    <tr>
+                        <th class="text-center">No.</th>
+                        <th>
+                            Metrica
+                        </th>
+                        <th>
+                            Resultados
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center">1</td>
+                        <td>Probabilidad de uso del sistema</td>
+                        <td><label id="p"></label></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">2</td>
+                        <td>Tiempo de espera del reclamo</td>
+                        <td><label id="wq"></label></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">3</td>
+                        <td>Numero promedio de reclamos en cola</td>
+                        <td><label id="lq"></label></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">4</td>
+                        <td>Tiempo promedio que un reclamo pasa en el sistema</td>
+                        <td><label id="ws"></label></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">5</td>
+                        <td>Numero promedio de reclamos en el sistema</td>
+                        <td><label id="ls"></label></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+<br />
+@*PANEL PARA SELECCIÓN DE MARCA*@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="text-center"><h3>Prueba de Chi cuadrada</h3></div>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12">
+            <form>
+                <div class="form-group">
+                    <label class="col-form-label" for="formGroupExampleInput">Seleccione una marca</label>
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.DropDownList("cod_marca", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" id="baddm" class="btn btn-primary"> Agregar marca</button>
+                        </div>
+                        <div class="col-md-8" id="lista_m">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label" for="formGroupExampleInput2">Seleccione un problema</label>
+                    <div class="row">
+                        <div class="col-md-2">
+                            @Html.DropDownList("codDanio", null, htmlAttributes: new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" id="baddp" class="btn btn-primary"> Agregar problema </button>
+                        </div>
+                        <div class="col-md-8" id="lista_d">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="button" onclick="ObtenerTabla()" class="col-md-offset-10 btn btn-primary">Crear tabla</button>
+                </div>
+            </form>
+            <br />
+            <table id="tabla" class="table table-bordered">
+                <thead class="bg-info"></thead>
+                <tbody></tbody>
+            </table>
+            <div class="row">
+                <button type="button" class="btn btn-primary col-md-offset-10" onclick="chiCuadrada()">Realizar calculos</button>
+            </div>
+            <br />
+            <div id="rchi" class="alert-info">
+
+            </div>
+            <div id="gl">
+
+            </div>
+            <div id="vt">
+
+            </div>
+            <div id="ns">
+              
+            </div>
+            <div id="r">
+                 
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/Chart.min.js"></script>
 <script>
 
     function Calcular() {
-        
+
         //calcular la probabilidad
         var tasa_servicio = $("#vts").val();
         var tasa_llegada = parseInt($("#tsll").html());
@@ -202,22 +286,283 @@
             $("#vts").removeClass("error");
             $("#msg").addClass("ocultar");
         }
-        if (tasa_llegada == 0) { alert("la tasa de llegada es 0"); return;}
+        if (tasa_llegada == 0) { alert("la tasa de llegada es 0"); return; }
         //calculos
         var probabilidad = tasa_llegada / tasa_servicio;
-        $("#p").html(probabilidad);
+        numDecimales = 2;
+        $("#p").html(probabilidad.toFixed(numDecimales));
         //calcular la tiempo promedio en la cola
-        wq = tasa_llegada / (tasa_servicio * (tasa_servicio - tasa_llegada));
-        $("#wq").html(wq);
+        wqH = tasa_llegada / (tasa_servicio * (tasa_servicio - tasa_llegada));
+        wqM = wqH * 60;
+        $("#wq").html(wqH.toFixed(numDecimales) + " Horas = " + wqM.toFixed(numDecimales) + " Minutos");
         //calcular logintud de la cola
-        lq = tasa_llegada * wq;
-        $("#lq").html(lq);
+        lq = tasa_llegada * wqH;
+        $("#lq").html(lq.toFixed(numDecimales) + " Reclamos ");
         //calcular el tiempo de espera en el sistema
-        ws = wq + (1 / tasa_servicio);
-        $("#ws").html(ws);
+        wsH = wqH + (1 / tasa_servicio);
+        wsM = wsH * 60;
+        $("#ws").html(wsH.toFixed(numDecimales) + " Horas = " + wsM.toFixed(numDecimales) + " Minutos");
         //calcular numero de clientes en el sistema
-        ls = tasa_llegada * ws;
-        $("#ls").html(ls);
+        ls = tasa_llegada * wsH;
+        $("#ls").html(ls.toFixed(numDecimales) + " Reclamos ");
     }
+</script>
+<script>
+    $("#baddm").click(AddMarca);//fila
+    $("#baddp").click(AddDanio);//columna
+    var marcas = [];
+    var danios = [];
+    var matriz_datos = [];
+    var suma_filas = [];
+    var suma_columnas = [];
+    var matriz_frecuencias = [];
+    var total = 0;
+    var chi = 0;
+    var grados_libertad = 0;
+    var nivel_significacia = 0.05;//95%
+    var valor_tabla = 0.00;
+
+    function AddMarca() {
+        var cod_marca = $("#cod_marca").val();
+        if (cod_marca == null) { alert("No hay mas items"); return;}
+        var marca = $("#cod_marca option:selected")[0].innerText;
+        marcas.push({ cod_marca: cod_marca, marca: marca });
+        $("#cod_marca option:selected").remove();
+        MostrarMarcas();
+    }
+
+    function MostrarMarcas() {
+        var lista_marcas = "";
+        for (var i = 0; i < marcas.length; i++) {
+            lista_marcas += "<span index=\"" + i + "\" onclick=\"EliminarMarca(this)\" class=\"item\">" + marcas[i].marca + "</span>";
+        }
+        $("#lista_m").empty();
+        $("#lista_m").html(lista_marcas);
+    }
+    function MostrarDanios() {
+        var lista_danios = "";
+        for (var i = 0; i < danios.length; i++) {
+            lista_danios += "<span index=\"" + i + "\" onclick=\"EliminarDanio(this)\" class=\"item\">" + danios[i].descripcion + "</span>";
+        }
+        $("#lisda_d").empty();
+        $("#lista_d").html(lista_danios);
+    }
+    function AddDanio() {
+        var codDanio = $("#codDanio").val();
+        if (codDanio == null) { alert("No hay mas items"); return; }
+        var nom_danio = $("#codDanio option:selected")[0].innerText;
+        danios.push({ codDanio: codDanio, descripcion: nom_danio, estado: true });
+        $("#codDanio option:selected").remove();
+        MostrarDanios();
+    }
+
+    function EliminarMarca(elemento){
+        $("#cod_marca").append('<option value="' + marcas[elemento.attributes[0].value].cod_marca + '">' + marcas[elemento.attributes[0].value].marca + '</option>');
+        marcas.splice(elemento.attributes[0].value, 1);
+        MostrarMarcas();
+    }
+    function EliminarDanio(elemento) {
+        $("#codDanio").append('<option value="' + danios[elemento.attributes[0].value].codDanio + '">' + danios[elemento.attributes[0].value].descripcion + '</option>');
+        danios.splice(elemento.attributes[0].value, 1);
+        MostrarDanios();
+    }
+    function ObtenerTabla() {
+     var listas_datos = { danios: danios, marcas: marcas };
+                console.log(listas_datos);
+                $.ajax({
+                        traditional: true,
+                        url: '@Url.Action("DaniosPMarca", "Simulador")',
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(listas_datos),
+                    success: function (response) {
+                        matriz_datos = response;
+                        console.log(matriz_datos);
+                        CrearTabla(matriz_datos);
+                    }
+               });
+    }
+
+    function CrearTabla(matriz) {
+        if (danios.length < 2 || marcas.length < 2) { alert("Error"); retur;}
+        //reinicio de variables
+        suma_filas = [];
+        suma_columnas = [];
+
+        $("#tabla > thead").empty();
+        $("#tabla > tbody").empty();
+        //En cabezado de tabla
+        var fila = "<tr><th>Marca\Problema</th>";
+       
+        for (var i = 0; i < danios.length; i++) {
+            fila += "<th>" + danios[i].descripcion + "</th>";
+        }
+        fila += "</tr>";
+        //agregar a la tabla el encabezado
+        $("#tabla > thead").append(fila);
+        total_filas = 0;
+        //agregar datos a tabla y sumar filas, calcular total.
+        for (var k = 0; k < marcas.length; k++) {
+            var f = "<tr><td>" + marcas[k].marca + "</td>";
+            var suma = 0; 
+            for (var i = 0; i < danios.length; i++) {
+                f += "<td>" + matriz[k][i] + "</td>";
+                suma += matriz[k][i];
+            }
+            total_filas += suma;
+            suma_filas.push(suma);
+            f += "</tr>";
+            $("#tabla > tbody").append(f);
+        }
+        console.log("suma filas");
+        console.log(suma_filas);
+        console.log("total filas");
+        console.log(total_filas);
+        //suma columnas, calcula el total
+        total_columnas = 0;
+        for (var i = 0; i < danios.length; i++) {
+            var suma = 0;
+            for (var k = 0; k < marcas.length; k++) {
+                suma += matriz[k][i];
+            }
+            total_columnas += suma;
+            suma_columnas.push(suma);
+        }
+        console.log("suma columnas");
+        console.log(suma_columnas);
+        console.log("total columnas");
+        console.log(total_columnas);
+    }
+    function chiCuadrada() {
+        //validacion
+        if (!danios.length > 0 || !marcas.length > 0 || !suma_filas.length > 0 || !suma_columnas.length>0) { alert("Error"); return; }
+        //inicializacion de variables en caso de que se presione de nuevo el boton realizar calculos
+        matriz_frecuencias = [];
+        total = 0;
+        chi = 0;
+     //calculo de frecuencias esperada o teorica.
+        for (var i = 0; i < suma_filas.length; i++) {
+            var fila_frec = [];
+            for (var k = 0; k < suma_columnas.length; k++) {
+                var fe = (suma_columnas[k] * suma_filas[i]) / total_filas;
+                fila_frec.push(fe);
+            }
+            matriz_frecuencias.push(fila_frec);
+        }
+        console.log("matriz_frecuencias");
+        console.log(matriz_frecuencias);
+        //calculo de chi
+        for (var i = 0; i < marcas.length; i++) {
+            for (var k = 0; k < danios.length; k++) {
+                
+                var r = (matriz_frecuencias[i][k] - matriz_datos[i][k]);
+                var cua = r*r;
+                var d = cua / matriz_frecuencias[i][k];
+                chi += d;
+            }
+        }
+        //resultado de chi
+        $("#rchi").html("<div class=\"col-md-offset-10 col-md-2\" style=\"background-color: #53ed53; color: #0d0c0c;\"> X^2 = " + chi + "</div>");
+        grados_libertad = (danios.length - 1) * (marcas.length - 1);
+        //obtiene valor tabla e implimer resultados
+        ObtenerValorTabla(grados_libertad, nivel_significacia);//no puede realizar un return, la respuesta se almacena en valor_tabla
+    }
+    function ObtenerValorTabla(gl,ns) {
+        var signo = "";
+        var conclusion = "";
+        var mensaje = "";
+        $.ajax({
+            traditional: true,
+            url: '@Url.Action("GetValorTabla", "Simulador")',
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ grados_libertad: gl, nivel_significacia:ns }),
+            success: function (response) {
+                valor_tabla = response;
+                $("#ns").html("Nivel de significancia: " + ns);
+                $("#gl").html("Grados de libertad utilizados: " + gl);
+                $("#vt").html("Valor obtenido de la tabla: " + valor_tabla);
+                signo = (chi>valor_tabla) ? "mayor" : "menor";
+                conclusion = (chi > valor_tabla) ? "influye" : "no influye";
+                mensaje = "El valor de X^2 es " + signo + " al valor obtenido de la tabla, La marca del automovil "+ conclusion + " en la cantidad de reclamos y accidentes generados";
+                $("#r").html(mensaje);
+            }
+        });
+    }
+</script>
+
+<script>
+    var lstHoras = @Html.Raw(Json.Encode(ViewBag.lstHoras));
+    var horas = @ViewBag.horas;
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: lstHoras,
+            datasets: []
+        },
+        options: {
+            layout: {
+                padding: {
+                    left: 25,
+                    right: 25,
+                    top: 0,
+                    bottom: 0
+                }
+            },
+            elements: {
+                line: {
+                    tension: 0.2, // disables bezier curves,
+                    pointRadius: 0.1
+                }
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'HORAS'
+                    }
+                }]
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        // se agrega la linea recta que representa la tasa de llegada calculada
+        var tasaLlegada = (@ViewBag.tasaLlegada).toFixed(2);
+        var dataset = [];
+        for (var i = 0; i < 24; i++) {
+            dataset.push(tasaLlegada);
+        }
+        var color = random_rgba();
+        var newDataset = { label: 'Tasa Llegada', backgroundColor: color, borderColor: color, data: dataset, fill: false, borderWidth: 1 }
+        chart.data.datasets.push(newDataset);
+
+        @{  int i = 1; }
+        @foreach (List<int> lst in ViewBag.llegadasDia)
+        {
+            @:color = random_rgba();
+            @:var newDataset = { label: 'Día ' + @i, backgroundColor: color, borderColor: color, data: @Html.Raw(Json.Encode(lst)), fill: false, borderWidth: 2 }
+            @:chart.data.datasets.push(newDataset);
+            i++;
+        }
+        chart.update();
+    });
+
+    function random_rgba() {
+        var o = Math.round, r = Math.random, s = 255;
+        return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',0.8)';
+    }
+
 </script>
 

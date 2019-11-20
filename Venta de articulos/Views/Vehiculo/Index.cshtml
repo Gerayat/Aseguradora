@@ -21,16 +21,16 @@
                 <th>
                     Marca
                 </th>
-                <th>
-                    Linea
-                </th>
+                @*<th>
+                    Linea (no se esta utilizando)
+                </th>*@
                 <th>
                     Modelo
                 </th>
                 <th>
                     Color
                 </th>
-                <th></th>
+                <th>Opciones</th>
             </tr>
         </thead>
 
@@ -42,11 +42,11 @@
                         @item.placa
                     </td>
                     <td>
-                        @item.marca
+                        @item.tbMarca.marca
                     </td>
-                    <td>
-                        @item.linea
-                    </td>
+                    @*<td>
+                        @item.linea (no se esta utilizando)
+                    </td>*@
                     <td>
                         @item.modelo
                     </td>
